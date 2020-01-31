@@ -1,0 +1,56 @@
+{% extends "LayoutAdmin.njk" %}
+
+{# {% block head %}
+    <title>Receitas - Foodfy</title>
+{% endblock %} #}
+
+{# {% block header %}
+    <nav class="links">
+        <a href="/admin/recipes">Recipes</a>
+        <a href="/admin/chefs">Chefs</a>
+    </nav>
+{% endblock header %}
+
+{% block search %}{% endblock search %} #}
+
+{% block content %}
+    <main id="main">
+        <section class="sectionTitle">
+            <h2>Criar chefs</h2>
+            <div class="divButton">
+
+                <button class="salvar" type="submit" form="post">Salvar chef</button>
+
+            </div>
+        </section>
+
+        <section class="form">
+            <form method="POST" action="/admin/chefs" id="post">
+
+                <div class="item">
+                    <p>Nome </p>
+                    <div>
+                        <input type="text" name="name" value="">
+                    </div>
+                </div>
+
+                <div class="item">
+                    <p>Avatar</p>
+                    <div>
+                        <input type="url" name="avatar_url" placeholder="http://" value="">
+                    </div>
+                </div>
+
+            </form>
+        </section>
+
+    </main>
+{% endblock content %}
+
+{% block footer %}
+    {% include 'fildsFooter.njk'%}
+{% endblock footer%}
+
+{% block script %}
+    <script src="/scriptNewCampo.js"></script>
+{% endblock script %}

@@ -1,0 +1,65 @@
+{% extends "Layout.njk" %}
+
+{% block head %}
+    <title>Receita -
+        {{ chef.name }}</title>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="mainAdminDetalhe">
+        <section class="sectionTitle">
+            <h2>Chef:
+                {{ chef.name }}</h2>
+        </section>
+
+        <div class="bannerCardChef">
+
+            <div class="bannerCardChefImage">
+                <img src="{{ chef.avatar_url }}" alt="">
+            </div>
+
+            <div class="bannerCardChefTitle">
+                <h1>{{ chef.name }}</h1>
+                <p>{{ chef.total_recipes }}
+                    receitas</p>
+            </div>
+
+        </div>
+
+        <h2>Receitas</h2>
+
+        <div id="cardsRecipesChef">
+            {% if chef.total_recipes >= 1 %}
+                {% for recipe in recipes %}
+
+                    <div class="cardRecipesChef" id="{{ chef.id }}">
+
+                        <div class="cardImage" id="{{ receita.id }}">
+                            <img class="link_image cardChef" src="{{recipe.image}}" name="/recipe/{{ recipe.id }}">
+                        </div>
+
+                        <section class="section">
+                            <div class="cardTitle">
+                                <a class="cardChef link_title" href="/recipe/{{ recipe.id }}">{{recipe.title}}</a>
+                            </div>
+                            <div class="cardAuthor">
+                                <p class="cardChef">{{chef.name}}</p>
+                            </div>
+                            <div class="cardVisualizar">
+                                <a href="/recipe/{{ recipe.id }}">Visualisar</a>
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </main>
+
+    <script src="/scriptDetalhe.js"></script>
+
+{% endblock content %}

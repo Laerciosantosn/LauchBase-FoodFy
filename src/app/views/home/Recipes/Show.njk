@@ -1,0 +1,59 @@
+{% extends "Layout.njk" %}
+
+{% block head %}
+    <title>Receita - {{receita.title}}</title>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="mainReceitaDetalhe">
+
+        <div class="bannerCardRecipe">
+            <div class="bannerCardRecipeImage">
+                <img src="{{receita.image}}" alt="">
+            </div>
+
+            <div class="bannerCardRecipeTitle">
+                <h1>{{receita.title}}</h1>
+            </div>
+
+            <div class="bannerCardRecipeAuthor">
+                <p>{{receita.author}}</p>
+            </div>
+
+        </div>
+
+        <div class="ingredientes titles">
+           
+            <h3>Ingredientes<span class="span">MOSTRAR</span></h3>
+            
+            <div id="itemsIgredientes">
+                <ul>
+                    {% for itemsIgredientes in receita.ingredients %}
+                        <li>{{ itemsIgredientes }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="modoDePreparo titles">
+            <h3>Modo de preparo<span class="span">MOSTRAR</span></h3>
+            <div id="preparo">
+                <ul>
+                    {% for preparo in receita.preparation %}
+                        <li>{{ preparo }}</li>
+                    {% endfor%}
+                </ul>
+            </div>
+        </div>
+
+        <div class="informacoesAdicionais titles">
+            <h3>Informações adicionais<span class="span">MOSTRAR</span></h3>
+            <ul>     
+                <li>{{ receita.information }}</li>    
+            </ul>
+        </div>
+
+    </main>
+    <script src="/scriptReceitaDetalhe.js"></script>
+{% endblock %}

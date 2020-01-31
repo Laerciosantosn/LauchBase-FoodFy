@@ -1,0 +1,16 @@
+{% extends "Layout.njk" %}
+{% import "parts/SectionRecipes.njk" as section %}
+
+
+{% block content %}
+
+<main id="main" class="mainHome">
+
+    {% include "parts/Banner.njk"%}
+
+     {{ section.recipes('Mais acessadas', receitas) }}
+      
+    </main>
+
+<script src="/scriptDetalhe.js"></script>
+{% endblock %}

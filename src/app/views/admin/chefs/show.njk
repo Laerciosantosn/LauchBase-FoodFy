@@ -1,0 +1,76 @@
+{% extends "LayoutAdmin.njk" %}
+
+{# {% block head %}
+    <title>Receita -
+        {{ chef.name }}</title>
+{% endblock %} #}
+
+{# {% block header %}
+    <nav class="links">
+        <a href="/admin/recipes">Recipes</a>
+        <a href="/admin/chefs">Chefs</a>
+    </nav>
+{% endblock header %} #}
+
+{# {% block search %}{% endblock search %} #}
+
+{% block content %}
+
+    <main id="main" class="mainAdminDetalhe">
+        <section class="sectionTitle">
+            <h3>Chef:
+                {{ chef.name }}</h3>
+            <a href="{{ chef.id }}/edit">
+                <p>Editar chef</p>
+            </a>
+        </section>
+
+        <div class="bannerCardChef">
+
+            <div class="bannerCardChefImage">
+                <img src="{{ chef.avatar_url }}" alt="">
+            </div>
+
+            <div class="bannerCardChefTitle">
+                <h1>{{ chef.name }}</h1>
+                <p>{{ chef.total_recipes }}
+                    receitas</p>
+            </div>
+
+        </div>
+        <h2>Receitas</h2>
+        <div id="cardsRecipesChef">
+            {% if chef.total_recipes >= 1 %}
+                {% for recipe in recipes %}
+                    <div class="cardRecipesChef" id="{{ chef.id }}">
+
+                        <div class="cardImage" id="{{ receita.id }}">
+                            <img class="link_image cardChef" src="{{recipe.image}}" name="/admin/recipes/{{ recipe.id }}">
+                        </div>
+
+                        <section class="section">
+                            <div class="cardTitle">
+                                <a class="cardChef link_title" href="/admin/recipes/{{ recipe.id }}">{{recipe.title}}</a>
+                            </div>
+                            <div class="cardAuthor">
+                                <p class="cardChef">{{chef.name}}</p>
+                            </div>
+                            <div class="cardVisualizar">
+                                <a href="/admin/recipes/{{ recipe.id }}">Visualisar</a>
+                            </div>
+
+                        </section>
+
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+        </div>
+
+    </main>
+
+{% endblock content %}
+
+{# {% block footer %}
+    {% include 'fildsFooter.njk'%}
+{% endblock footer%} #}

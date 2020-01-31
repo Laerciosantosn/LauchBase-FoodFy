@@ -1,0 +1,33 @@
+{% extends "layoutAdmin.njk" %}
+
+{# {% block head %}
+    <title>Receitas - Foodfy</title>
+{% endblock %} #}
+
+{% block content %}
+
+    <main id="main">
+
+        <section class="sectionTitle">
+            <h2>Criar receitas</h2>
+            <div class="divButton">
+                <button class="salvar" type="submit" form="post">Salvar receita</button>             
+            </div> 
+        </section>
+
+        <section class="form">
+        {# instlar a dependencia Multer  e add enctyp="multipart/form-data" no fomr para trabalhar com envio de imagens#}
+            <form method="POST" action="/admin/recipes" id="post" enctyp="multipart/form-data">
+
+            {% include 'Parts/FormsRecipes.njk'%}
+
+            </form>
+        </section>
+
+    </main>
+{% endblock content %}
+
+
+{% block script %}
+    <script src="/scriptNewCampo.js"></script>
+{% endblock script %}

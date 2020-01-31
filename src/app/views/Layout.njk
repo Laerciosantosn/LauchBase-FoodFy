@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        {% include "Parts/Styles.njk" %}
+
+        {% block head %}
+            <title>Foodfy</title>
+        {% endblock head %}
+
+    </head>
+
+    <body>
+
+    {% include "Parts/Header.njk" %}
+
+        {# <header id="header">
+            <section>
+                    <a href="/" class="logo"><img src="/images/logo2.png" alt=""></a>
+                    {% block header %}
+                        <nav class="links">
+                            <a href="/About">About</a>
+                            <a href="/Recipes">Recipes</a>
+                            <a href="/Chefs">Chefs</a>
+                        </nav>
+                    {% endblock header %}
+
+                {% block search %}
+
+                    <form action="/Search" method="GET">
+                        <input 
+                        type="text" 
+                        name="filter" 
+                        placeholder="Buscar uma receita" 
+                        value="{{ filter }}">
+                        <button type="submit">Filtrar</button>
+                    </form>
+                    
+                {% endblock search %}
+            </section>
+        </header> #}
+
+        <!-- Tudo que for de outras paginas sera add no block content -->
+        {% block content %}{% endblock %}
+
+        {% include "Parts/Footer.njk" %}
+
+        <script src="/scripts.js"></script>
+
+    </body>
+
+</html>

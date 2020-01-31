@@ -1,0 +1,62 @@
+{% extends "layoutAdmin.njk" %}
+
+{# {% block head %}
+    <title>Receitas - Foodfy</title>
+{% endblock %} #}
+
+{# {% block header %}
+    <nav class="links">
+        <a href="recipes">Recipes</a>
+        <a href="chefs">Chefs</a>
+    </nav>
+{% endblock header %} #}
+
+{# {% block search %}
+{% endblock search %} #}
+
+{% block content %}
+
+    <main id="main" class="mainReceitasAdmin">
+        <section class="sectionTitle">
+            <h2>Gerenciar receitas</h2>
+            <a href="/admin/recipes/create">Adicionar receitas</a>
+        </section>
+
+        <div id="adminCardsRecipes">
+
+            {% for receita in receitas %}
+
+                <div class="cardRecipesChef" id="{{ receita.id }}">
+
+                    <div class="cardImage">
+                        <img class="link_image" src="{{receita.image}}"  name="/admin/recipes/{{ receita.id }}">
+                    </div>
+                    <section class="section">
+                        <div class="cardTitle">
+                            <a class="link_title" href="/admin/recipes/{{ receita.id }}">{{receita.title}}</a>
+                        </div>
+                        <div class="cardAuthor">
+                            <p class="cardChef">{{receita.author}}</p>
+                        </div>
+                        <div class="cardVisualizar">
+                            <a href="/admin/recipes/{{ receita.id }}">Visualisar</a>
+                        </div>
+                    </section>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+    {# <script src="/scriptReceitaDetalhe.js"></script> #}
+    <script src="/scriptDetalhe.js"></script>
+    
+    {# <script src="/scripts.js"></script> #}
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'fildsFooter.njk'%}
+{% endblock footer%}
