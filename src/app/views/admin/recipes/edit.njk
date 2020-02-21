@@ -19,13 +19,13 @@
 
             </div>
 
-        </section>
+        </section> 
 
         <section class="form">
         
         {# instlar a dependencia Multer  e add enctyp="multipart/form-data" no fomr para trabalhar com envio de imagens#}
 
-            <form method="POST" action="/admin/recipes?_method=PUT" id="post" enctyp="multipart/form-data">
+            <form method="POST" action="/admin/recipes?_method=PUT" id="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ receita.id }}">
 
  {% include 'Parts/FormsRecipes.njk'%}

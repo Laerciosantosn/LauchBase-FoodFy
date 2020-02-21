@@ -6,14 +6,14 @@ module.exports = {
         INSERT INTO files (
             name,
             path
-        ) VALUES ($1, $2, $3)
+        ) VALUES ($1, $2)
         RETURNING id
     `
         const values = [
             filename,
             path
         ]
-
+        
        return db.query(query, values)
     }, 
 }

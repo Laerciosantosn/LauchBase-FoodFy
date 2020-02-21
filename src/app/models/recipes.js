@@ -33,11 +33,11 @@ module.exports = {
             date(Date.now()).isoBr,
             data.chef
         ]
-
-        db.query(query, values, function (err, results) {
-            if (err) throw `Database Error! ${err}`
-            callback(results.rows[0])
-        })
+        return db.query(query, values)
+        // db.query(query, values, function (err, results) {
+        //     if (err) throw `Database Error! ${err}`
+        //     callback(results.rows[0])
+        // })
     },  
     find(id,callback){
         db.query(`

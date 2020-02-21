@@ -1,5 +1,6 @@
 const Recipes = require('../models/recipes')
 const File = require("../models/file")
+const RecipesFile = require("../models/recipesFile")
 
 
 module.exports = {
@@ -25,21 +26,26 @@ module.exports = {
             }
         }
 
+        
         if(req.files.lenght == 0){
             return res.send('Please, send at last image!')
         }
         
         let resultsRecipe = await Recipes.create(req.body)
         const recipetId = resultsRecipe.rows[0].id
-
-        // let resultsFile = req.files.map(file => File.create({...file }))
-
-        const filesPromise = req.files.map(file => File.create({...file }))
-
+       
+        const resultsFiles = await req.files.map(file => File.create({ ...file }))
+        
+        // await Promise.all(resultsFiles)
+        
+        const fileId = resultsFiles.rows
+       
+        const filesPromise = resultsFiles.map(file => RecipesFile.create(
+            { recipe_id: recipetId, file_id: fileId}))    
+        
         await Promise.all(filesPromise)
-        const filetId = resultsRecipe.rows[0].id
+        
         // ===CONTINUAR A LOGICA CRIAR EM FILE O createRecipeFiles
-        File.createRecipeFiles(recipetId, filetId)
 
         return res.redirect(`recipes`)
     },
