@@ -1,20 +1,33 @@
-const recipes = require('../models/recipes')
-const chefs = require('../models/chefs')
-const home = require('../models/home')
+const Recipes = require('../models/recipes')
+const Chefs = require('../models/chefs')
+const Home = require('../models/home')
+const RecipeFiles = require("../models/recipesFile")
 
 module.exports = {
-    index(req, res) {
+    async index(req, res) {
+        
+        let recipesResults = await Recipes.all()
+       
+        const recipePromise = recipesResults.map( recipe => RecipeFiles.find(recipe.id))
+        const result =  await Promise.all(recipePromise)
 
-        home.all(function (recipes) {
-            const receitas = []
-            const numberMaxofCardsInHome = 3;
-            for (let index = 0; index < recipes.length; index++) {
-                if (index < numberMaxofCardsInHome) {
-                    receitas.push(recipes[index])
-                }
+        const filePromise = result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
+        let fileResult =  await Promise.all(filePromise)
+
+        recipesResults = await fileResult.map(file => ({
+            ...file,
+            src: `${file.path.replace("public","")}`
+        }))
+       
+        const recipes = []
+        const numberMaxofCardsInHome = 3;
+        for (let index = 0; index < recipesResults.length; index++) {
+            if (index < numberMaxofCardsInHome) {
+                recipes.push(recipesResults[index])
             }
-            return res.render("home/Index", { receitas })
-        })
+        }
+      
+        return res.render("home/Index", { recipes })
 
     },
     about(req, res) {
@@ -22,39 +35,90 @@ module.exports = {
         return res.render("home/About/index")
 
     },
-    recipes(req, res) {
+    async recipes(req, res) {
 
-        home.all(function (receitas) {
-            return res.render("home/Recipes/Index", { receitas })
-        })
-    },
-    ShowRecipe(req, res) {
+        let recipesResults = await Recipes.all()
+       
+        const recipePromise = recipesResults.map( recipe => RecipeFiles.find(recipe.id))
+        const Result =  await Promise.all(recipePromise)
       
-        recipes.find(req.params.id, function (receita) {
-            if (!receita) {
-                return res.send('Recipes not found!')
-            }
-            return res.render("home/Recipes/Show", { receita })
-        })
+        const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
+        let fileResult =  await Promise.all(filePromise)
 
+        recipesResults = await fileResult.map(file => ({
+            ...file,
+            src: `${file.path.replace("public","")}`
+        }))
+
+        return res.render("home/Recipes/Index", { recipes: recipesResults })
+        
     },
-    chefs(req, res) {
-        chefs.all(function (chefs) {
-            return res.render("home/Chefs/Index", { chefs })
-        })
+    async ShowRecipe(req, res) {
+        let recipesResults = [await Recipes.find(req.params.id)]
+        const recipePromise = recipesResults.map( recipe => RecipeFiles.find(recipe.id))
+        const Result =  await Promise.all(recipePromise)
+      
+        const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
+        let fileResult =  await Promise.all(filePromise)
 
+        
+        recipesResults = await fileResult.map(file => ({
+            ...file,
+            src: `${file.path.replace("public","")}`
+        }))
+      
+        return res.render("home/Recipes/Show", { recipe: recipesResults[0] })
     },
-    ShowChef(req, res) {
+    async chefs(req, res) {
 
-        chefs.find(req.params.id, function (chef) {
-            if (!chef) {
-                return res.send('Chef não encontrado')
-            }
-            chefs.recipesChef(req.params.id,function(recipes){
+        const chefsAll = await Chefs.all()
+      
+        chefsResult =  await Chefs.allchefs(chefsAll.file_id)
+   
+         chefsResult = await chefsResult.map(file => ({
+                ... file,
+                src: `${file.path.replace("public","")}`
+        }))
+
+        return res.render("home/Chefs/Index", { chefs: chefsResult })
+       
+    },
+    async ShowChef(req, res) {
+
+        const chef =  await Chefs.find(req.params.id)
+
+        let chefResult = await Chefs.findchef(chef.file_id, chef.id)
+      
+         chefResult = {
+                ... chefResult,
+                src: `${chefResult.path.replace("public","")}`,
+                total_recipes: chef.total_recipes
+        }
+          
+        let recipesResults = await Recipes.recipesChef(chefResult.id)
+       
+        const recipePromise = recipesResults.map( recipe => RecipeFiles.recipeChef(recipe.id))
+        const Result =  await Promise.all(recipePromise)
+      
+        const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
+        let fileResult =  await Promise.all(filePromise)
+
+        recipesResults = await fileResult.map(file => ({
+            ...file,
+            src: `${file.path.replace("public","")}`
+        }))
+       
+            return res.render("home/Chefs/Show", { chef: chefResult, recipes: recipesResults })
+
+        // Chefs.find(req.params.id, function (chef) {
+        //     if (!chef) {
+        //         return res.send('Chef não encontrado')
+        //     }
+        //     Chefs.recipesChef(req.params.id,function(recipes){
                 
-                return res.render("home/Chefs/Show", { chef, recipes })
-            })
-        })
+        //         return res.render("home/Chefs/Show", { chef, recipes })
+        //     })
+        // })
 
     },
     search(req, res) {
@@ -62,11 +126,11 @@ module.exports = {
         const { filter } = req.query
        
         if (filter) {
-            home.findRecipes(filter, function (receitas) {
+            Home.findRecipes(filter, function (receitas) {
                 return res.render("home/Search/Index", { receitas, filter })
             })
         } else {
-            home.all(function (receitas) {
+            Home.all(function (receitas) {
                 return res.render("home/Search/Index", { receitas, filter })
             })
         }   

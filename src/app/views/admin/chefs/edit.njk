@@ -1,22 +1,9 @@
 {% extends "LayoutAdmin.njk" %}
 
-{# {% block head %}
-    <title>Receitas - Foodfy</title>
-{% endblock %}
-
-{% block header %}
-    <nav class="links">
-        <a href="/admin/recipes">Recipes</a>
-        <a href="/admin/chefs">Chefs</a>
-    </nav>
-{% endblock header %}
-
-{% block search %}{% endblock search %} #}
-
 {% block content %}
     <main id="main">
         <section class="sectionTitle">
-            <h2>Gerenciar chefs</h2>
+            <h2>Manage chefs</h2>
             {% if chef.total_recipes >= 1 %}
                 <p class="message"></p>
             {% endif %}
@@ -25,45 +12,28 @@
                 <form action="/admin/chefs?_method=DELETE" method="POST" class="deletar">
                     <input type="hidden" name="id" value="{{ chef.id }}">
                     {% if chef.total_recipes == 0 %}
-                        <button type="submit" >Deletar</button>
+                        <button type="submit" >Delete</button>
 
                     {% else %}
-                        <button type="submit" class="disabled" >Deletar</button>
+                        <button type="submit" class="disabled" >Delete</button>
 
                     {% endif %}
                 </form>
 
-                <button class="salvar" type="submit" form="post">Salvar chef</button>
+                <button class="salvar" type="submit" form="post">Update chef</button>
             </div>
         </section>
+
         <section class="form">
-            <form method="POST" action="/admin/chefs?_method=PUT" id="post">
+            <form method="POST" action="/admin/chefs?_method=PUT" id="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ chef.id }}">
-
-                <div class="item">
-                    <p>Nome</p>
-                    <div>
-                        <input type="text" name="name" value="{{ chef.name }}">
-                    </div>
-                </div>
-
-                <div class="item">
-                    <p>Imagen da chef</p>
-                    <div>
-                        <input type="url" name="avatar_url" placeholder="http://" value="{{ chef.avatar_url }}">
-                    </div>
-                </div>
+                
+       {% include 'Parts/FormsChefs.njk'%}         
 
             </form>
         </section>
     </main>
 {% endblock content %}
-
-{# {% block footer %}
-
-    {% include 'fildsFooter.njk'%}
-
-{% endblock footer%} #}
 
 {% block script %}
     <script>
@@ -79,8 +49,5 @@
             this.disabled=true
             const message = document.querySelector(".message").innerHTML="Chefs que possuem receitas não podem ser deletados"
         })
-   
-
     </script>
-    {# <script src="/scriptNewCampo.js"></script> #}
 {% endblock script %}

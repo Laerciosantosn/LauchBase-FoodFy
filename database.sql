@@ -11,6 +11,7 @@ CREATE TABLE "recipes" (
   "preparation" text [],
   "information" text,
   "created_at" timestamp DEFAULT (now())
+  "updated_at" timestamp DEFAULT (now())
 );
 
 CREATE TABLE "chefs" (

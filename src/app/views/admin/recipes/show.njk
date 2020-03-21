@@ -1,27 +1,12 @@
 {% extends "LayoutAdmin.njk" %}
 
-{# {% block head %}
-    <title>Receita -
-        {{receita.title}}</title>
-{% endblock %}
-
-{% block header %}
-    <nav class="links">
-        <a href="/admin/recipes">Recipes</a>
-        <a href="/admin/chefs">Chefs</a>
-    </nav>
-{% endblock header %}
-
-{% block search %}
-{% endblock search %} #}
-
 {% block content %}
 
     <main id="main" class="mainAdminDetalhe">
         <section class="sectionTitle">
-            <h3>Receita: {{receita.title}}</h3>
-            <a href="{{ receita.id }}/edit">
-                <p>Editar receita</p>
+            <h3>Recipe: {{recipe.title}}</h3>
+            <a href="{{ recipe.id }}/edit">
+                <p>Edit recipe</p>
             </a>
         </section>
         {% include 'Parts/filds.njk'%}

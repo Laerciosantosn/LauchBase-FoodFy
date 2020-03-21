@@ -1,17 +1,17 @@
-const ingredientesSpan = document.querySelectorAll('.titles')
+const ingredientsSpan = document.querySelectorAll('.title')
 
-for (let ingredienteSpan of ingredientesSpan) {
-    ingredienteSpan.addEventListener('click', function () {
+for (let ingredientSpan of ingredientsSpan) {
+    ingredientSpan.addEventListener('click', function () {
 
-        const spanValue = ingredienteSpan.querySelector('.span').innerHTML
+        const spanValue = ingredientSpan.querySelector('.span').innerHTML
 
-        if (spanValue === 'MOSTRAR') {
-            ingredienteSpan.querySelector('ul').classList.add('visible')
-            ingredienteSpan.querySelector('.span').innerHTML = 'ESCONDER'
+        if (spanValue === 'SHOW') {
+            ingredientSpan.querySelector('ul').classList.add('visible')
+            ingredientSpan.querySelector('.span').innerHTML = 'TO HIDE'
         }
         else {
-            ingredienteSpan.querySelector('.span').innerHTML = 'MOSTRAR'
-            ingredienteSpan.querySelector('ul').classList.remove('visible')
+            ingredientSpan.querySelector('.span').innerHTML = 'SHOW'
+            ingredientSpan.querySelector('ul').classList.remove('visible')
         }
     })
 }

@@ -19,14 +19,18 @@
                 <div class="cardChef" id="{{ chef.id }}" >
 
                     <div class="cardImage">
-                        <img class="link_image" src="{{ chef.avatar_url }}" name="/chef/{{ chef.id }}">
+                        <a href="/chef/{{ chef.id }}"><img class="link_image" src="{{ chef.src }}" ></a>
                     </div>
                     <section class="section">
                         <div class="cardTitle">
                             <a class="link_title" href="/chef/{{ chef.id }}">{{ chef.name }}</a>
                         </div>
                         <div class="cardTotalRecipes">
-                            <h5>{{ chef.total_recipes }} receitas</p>
+                        {% if chef.total_recipes > 1 %}
+                            <h5>{{ chef.total_recipes }} recips</p>
+                            {% else %}
+                            <h5>{{ chef.total_recipes }} recip</p>
+                        {% endif %}    
                         </div>
                     </section>
                 </div>
@@ -39,7 +43,7 @@
 
 
 
-    <script src="/scriptDetalhe.js"></script>
+    {# <script src="/scriptDetalhe.js"></script> #}
 
 
 

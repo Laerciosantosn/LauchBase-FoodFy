@@ -7,13 +7,17 @@ for (item of menuItems) {
         item.classList.add("active")
     }
 }
-
+ 
 const PhotosUpload = {
     input: "",
     preview: document.querySelector('#photos-preview'),
     uploadLimit: 5,
     files: [],
-    handleFileInput(event) {
+    handleFileInput(event, num) {
+       
+        this.uploadLimit = num
+        
+        console.log(this.uploadLimit)
         const { files: fileList } = event.target
         PhotosUpload.input = event.target
 
@@ -38,6 +42,7 @@ const PhotosUpload = {
          PhotosUpload.input.files = PhotosUpload.getAllFiles()
     },
     hasLimit(event) {
+       
         const { uploadLimit, input, preview } = PhotosUpload
         const { files: fileList } = input
 
@@ -110,67 +115,97 @@ const PhotosUpload = {
     }
 }
 
+const addNewImput = {
+
+   addIngredient() {
+        const ingredients = document.querySelector("#ingredients");
+        const fieldContainer = document.querySelectorAll(".ingredient");
+        
+        const newField = fieldContainer[fieldContainer.length - 1].cloneNode(
+          true
+        );
+      newField.c
+        if (newField.children[0].value == "") return false;
+      
+        newField.children[0].value = ""; 
+        ingredients.appendChild(newField);
+      },
+    addPasso() {
+        const passos = document.querySelector("#passos");
+        const passoContainer = document.querySelectorAll(".passo");
+        
+        const newPasso = passoContainer[passoContainer.length - 1].cloneNode(
+          true
+        );
+      
+        if (newPasso.children[0].value == "") return false;
+      
+        newPasso.children[0].value = ""; 
+        passos.appendChild(newPasso);
+    }
+}
+
 // Paginação
 // totalPage = 20
 // selectedPage = 15
 // [1,..., 13, 14, 15, 16, 17, ..., 20]
 
-// function paginate(selectedPage, totalPage) {
-//     let pages = [],
-//         oldPage
+function paginate(selectedPage, totalPage) {
+    let pages = [],
+        oldPage
 
-//     for (let currentPage = 1; currentPage <= totalPage; currentPage++) {
+    for (let currentPage = 1; currentPage <= totalPage; currentPage++) {
 
-//         const firsAndLastPage = currentPage == 1 || currentPage == totalPage
-//         const pagesAfterSelectedPage = currentPage <= selectedPage + 2
-//         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
+        const firsAndLastPage = currentPage == 1 || currentPage == totalPage
+        const pagesAfterSelectedPage = currentPage <= selectedPage + 2
+        const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
 
-//         if (firsAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
-//             // pages.push(currentPage)
-//             if (oldPage && currentPage - oldPage > 2) {
-//                 pages.push("...")
-//             }
-//             if (oldPage && currentPage - oldPage == 2) {
-//                 pages.push(oldPage + 1)
+        if (firsAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
+            // pages.push(currentPage)
+            if (oldPage && currentPage - oldPage > 2) {
+                pages.push("...")
+            }
+            if (oldPage && currentPage - oldPage == 2) {
+                pages.push(oldPage + 1)
 
-//             }
-//             pages.push(currentPage)
+            }
+            pages.push(currentPage)
 
-//             oldPage = currentPage
-//         }
-//     }
-//     return pages
-// }
+            oldPage = currentPage
+        }
+    }
+    return pages
+}
 
-// function createPagination(pagination) {
+function createPagination(pagination) {
 
-//     const filter = pagination.dataset.filter
-//     const page = +pagination.dataset.page
-//     const total = +pagination.dataset.total
-//     const pages = paginate(page, total)
+    const filter = pagination.dataset.filter
+    const page = +pagination.dataset.page
+    const total = +pagination.dataset.total
+    const pages = paginate(page, total)
 
-//     let elements = ""
+    let elements = ""
 
-//     for (let page of pages) {
-//         if (String(page).includes("...")) {
-//             elements += `<span>${page}</span>`
-//         } else {
-//             if (filter) {
-//                 elements += `<a href="?page=${page}&filter=${filter}">${page}</a>`
-//             } else {
-//                 elements += `<a href="?page=${page}">${page}</a>`
-//             }
-//         }
-//     }
+    for (let page of pages) {
+        if (String(page).includes("...")) {
+            elements += `<span>${page}</span>`
+        } else {
+            if (filter) {
+                elements += `<a href="?page=${page}&filter=${filter}">${page}</a>`
+            } else {
+                elements += `<a href="?page=${page}">${page}</a>`
+            }
+        }
+    }
 
-//     pagination.innerHTML = elements
-// }
+    pagination.innerHTML = elements
+}
 
-// const pagination = document.querySelector(".pagination")
+const pagination = document.querySelector(".pagination")
 
 
-// if (pagination) {
-//     createPagination(pagination)
-// }
+if (pagination) {
+    createPagination(pagination)
+}
 
 

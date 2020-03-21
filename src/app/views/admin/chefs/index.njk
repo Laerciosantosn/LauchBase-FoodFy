@@ -1,25 +1,11 @@
 {% extends "LayoutAdmin.njk" %}
 
-{# {% block head %}
-    <title>Receitas - Foodfy</title>
-{% endblock %} #}
-
-{# {% block header %}
-    <nav class="links">
-        <a href="recipes">Recipes</a>
-        <a href="chefs">Chefs</a>
-    </nav>
-{% endblock header %}
-
-{% block search %}
-{% endblock search %} #}
-
 {% block content %}
 
     <main id="main" class="mainReceitasAdmin">
         <section class="sectionTitle">
-            <h2>Gerenciar chefs</h2>
-            <a href="/admin/chefs/create">Adicionar chefs</a>
+            <h2>Manage chefs</h2>
+            <a href="/admin/chefs/create">Add chefs</a>
         </section>
 
         <div id="cardsChefs">
@@ -29,14 +15,14 @@
                 <div class="cardChef" id="{{ chef.id }}">
 
                     <div class="cardImage">
-                        <img class="link_image" src="{{chef.avatar_url}}" name="/admin/chefs/{{ chef.id }}">
+                        <a href="/admin/chefs/{{ chef.id }}"><img class="link_image" src="{{chef.src}}" name="/admin/chefs/{{ chef.id }}"></a>
                     </div>
                     <section class="section">
                         <div class="cardTitle">
-                            <h3 class="link_title" href="/admin/chefs/{{ chef.id }}">{{chef.name}}</h3>
+                            <a href="/admin/chefs/{{ chef.id }}"><h3 class="link_title" >{{chef.name}}</h3></a>
                         </div>
                         <div class="cardVisualizar">
-                            <a href="/admin/chefs/{{ chef.id }}">Visualisar</a>
+                            <a href="/admin/chefs/{{ chef.id }}">Visualize</a>
                         </div>
                     </section>
                 </div>
@@ -45,15 +31,13 @@
 
         </div>
 
+        {# pagintate #}
+        <div class="pagination"
+            data-page={{pagination.page}}
+            data-total={{pagination.total}}
+        >
+        </div>
+
     </main>
 
-    {# <script src="/scriptReceitaDetalhe.js"></script> #}
-    <script src="/scriptDetalhe.js"></script>
-
-    {# <script src="/scripts.js"></script> #}
-
 {% endblock %}
-
-{# {% block footer %}
-    {% include 'fildsFooter.njk'%}
-{% endblock footer%} #}

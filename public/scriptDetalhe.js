@@ -19,7 +19,6 @@ for (let chef of chefs) {
     })
 }
 
-
 const Show = {
     showRecipe(e) {
         // for (let image of images) {

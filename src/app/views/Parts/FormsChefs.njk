@@ -1,0 +1,38 @@
+<div class="item">
+    <p>Avatar</p>
+
+    <div id="imageContainer">
+
+        <div id="photos-preview" class="chef">
+            {% if file %}
+                {% for image in file %}
+                    <div class="photo" id="{{ image.id }}">
+                        <img src="{{ image.src }}" alt="{{ image.name }}">
+                        <i class="material-icons" 
+                            onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="photos-upload" class="chef">
+        <input 
+            id="photos-input" 
+            type="file" 
+            name="photo" 
+            accept="image/*" 
+            onchange="PhotosUpload.handleFileInput(event, totalPage= 1)"
+        >
+        <i class="material-icons">add</i>
+    </div>
+</div>
+
+<div class="item">
+    <p>Name
+    </p>
+    <div>
+        <input type="text" name="name" value="{{ chef.name }}">
+    </div>
+</div>

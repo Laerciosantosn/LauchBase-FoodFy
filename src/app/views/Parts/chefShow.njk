@@ -1,0 +1,49 @@
+<div class="bannerCardChef">
+
+  <div class="bannerCardChefImage">
+    <img src="{{ chef.src }}" alt="">
+  </div>
+
+  <div class="bannerCardChefTitle">
+    <h1>{{ chef.name }}</h1>
+    {% if chef.total_recipes > 1 %}
+      <p>{{ chef.total_recipes }}
+        recipes</p>
+    {% else %}
+      <p>{{ chef.total_recipes }}
+        recipe</p>
+    {% endif %}
+  </div>
+
+</div>
+
+<h2>Recipes</h2>
+
+<div id="cardsRecipesChef">
+  {% if chef.total_recipes >= 1 %}
+    {% for recipe in recipes %}
+
+      <div class="cardRecipesChef" id="{{ chef.id }}">
+
+        <div class="cardImage" id="{{ receita.id }}">
+          <a href="/recipe/{{ recipe.id }}"><img class="link_image cardChef" src="{{recipe.src}}"></a>
+        </div>
+
+        <section class="section">
+          <div class="cardTitle">
+            <a class="cardChef link_title" href="/recipe/{{ recipe.id }}">{{recipe.title}}</a>
+          </div>
+          <div class="cardAuthor">
+            <p class="cardChef">{{recipe.chef}}</p>
+          </div>
+          <div class="cardVisualizar">
+            <a href="/recipe/{{ recipe.id }}">Visualize</a>
+          </div>
+
+        </section>
+
+      </div>
+
+    {% endfor %}
+  {% endif %}
+</div>

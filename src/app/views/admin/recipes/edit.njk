@@ -1,97 +1,35 @@
 {% extends "layoutAdmin.njk" %}
 
-{# {% block head %}
-    <title>Receitas - Foodfy</title>
-{% endblock %} #}
-
 {% block content %}
+
     <main id="main">
+
         <section class="sectionTitle">
-            <h2>Gerenciar receitas</h2>
+            <h2>Manage recipes</h2>
             <div class="divButton">
 
                 <form action="/admin/recipes?_method=DELETE" method="POST" class="deletar">
-                    <input type="hidden" name="id" value="{{ receita.id }}">
-                    <button type="submit">Deletar</button>
+                    <input type="hidden" name="id" value="{{ recipe.id }}">
+                    <button type="submit">Delete</button>
                 </form>
 
-                <button class="salvar" type="submit" form="post">Salvar receita</button>
+                <button class="salvar" type="submit" form="post">Update recipe</button>
 
             </div>
 
-        </section> 
-
+        </section>
+            
         <section class="form">
-        
-        {# instlar a dependencia Multer  e add enctyp="multipart/form-data" no fomr para trabalhar com envio de imagens#}
 
             <form method="POST" action="/admin/recipes?_method=PUT" id="post" enctype="multipart/form-data">
-                <input type="hidden" name="id" value="{{ receita.id }}">
+                <input type="hidden" name="id" value="{{ recipe.id }}">
 
- {% include 'Parts/FormsRecipes.njk'%}
-                {# <div class="item">
-                    <p>Imagen da receita</p>
-                    <div>
-                        <input type="url" name="image" placeholder="http://" value="{{ receita.image }}">
-                    </div>
-                </div>
-
-                <div class="item">
-                    <p>Nome da receita</p>
-                    <div>
-                        <input type="text" name="title" value="{{ receita.title }}">
-                    </div>
-                </div>
-
-                <div class="item">
-                    <p>Nome do autor</p>
-                    <div>
-                        <select name="chef">
-                            {% for chef in chefOptions %}
-                                <option value="{{ chef.id }}" {% if receita.chef_id == chef.id %} selected="selected" {% endif %}>{{ chef.name }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                </div>
-
-                {% block add %}
-
-                    <div class="item">
-                        <p>Ingredientes</p>
-                        <div id="ingredients">
-                            {% for ingredient in receita.ingredients %}
-                                <div class="ingredient">
-                                    <input type="text" name="ingredients[]" value="{{ ingredient }}" placeholder="Ingredient"/>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <button type="button" class="add-ingredient">Adicionar novo ingrediente</button>
-                    </div>
-
-                    <div class="item">
-                        <p>Modo de preparo</p>
-                        <div id="passos">
-                            {% for preparo in receita.preparation %}
-                                <div class="passo">
-                                    <input type="text" name="preparation[]" value="{{ preparo }}" placeholder="Passo"/>
-                                </div>
-                            {% endfor %}
-                        </div>
-                        <button type="button" class="add-passo">Adicionar novo passo</button>
-                    </div>
-
-                {% endblock add %}
-
-                <div class="item">
-                    <p>Informações adicionais</p>
-                    <div>
-                        <textarea name="information" id="textArea" cols="30" rows="10">{{ receita.information }}</textarea>
-                    </div>
-                </div> #}
-
+                {% include 'Parts/FormsRecipes.njk'%}
             </form>
+
         </section>
     </main>
+
 {% endblock content %}
 
 {% block script %}

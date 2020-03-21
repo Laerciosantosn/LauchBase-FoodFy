@@ -1,45 +1,45 @@
         <div class="bannerCardRecipe">
             <div class="bannerCardRecipeImage">
-                <img src="{{receita.image}}" alt="">
+                <img src="{{recipe.src}}" alt="">
             </div>
 
             <div class="bannerCardRecipeTitle">
-                <h1>{{receita.title}}</h1>
+                <h1>{{recipe.title}}</h1>
             </div>
 
             <div class="bannerCardRecipeAuthor">
-                <p>{{receita.author}}</p>
+                <p>{{recipe.chef}}</p>
             </div>
 
         </div>
 
-        <div class="ingredientes titles">
+        <div class="ingredients title">
            
-            <h3>Ingredientes<span class="span">MOSTRAR</span></h3>
+            <h3>Ingredients<span class="span">SHOW</span></h3>
             
-            <div id="itemsIgredientes">
+            <div id="itemsIgredients">
                 <ul>
-                    {% for itemsIgredientes in receita.ingredients %}
-                        <li>{{ itemsIgredientes }}</li>
+                    {% for itemsIgredients in recipe.ingredients %}
+                        <li>{{ itemsIgredients }}</li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
 
-        <div class="modoDePreparo titles">
-            <h3>Modo de preparo<span class="span">MOSTRAR</span></h3>
-            <div id="preparo">
+        <div class="title">
+            <h3>Mode of preparation<span class="span">SHOW</span></h3>
+            <div>
                 <ul>
-                    {% for preparo in receita.preparation %}
-                        <li>{{ preparo }}</li>
+                    {% for preparation in recipe.preparation %}
+                        <li>{{ preparation }}</li>
                     {% endfor%}
                 </ul>
             </div>
         </div>
 
-        <div class="informacoesAdicionais titles">
-            <h3>Informações adicionais<span class="span">MOSTRAR</span></h3>
+        <div class="title">
+            <h3>Additional information<span class="span">SHOW</span></h3>
             <ul>     
-                <li>{{ receita.information }}</li>    
+                <li>{{ recipe.information }}</li>    
             </ul>
         </div>
