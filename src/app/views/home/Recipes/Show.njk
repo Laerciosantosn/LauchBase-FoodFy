@@ -1,0 +1,15 @@
+{% extends "Layout.njk" %}
+
+{% block head %}
+    <title>Receita - {{receita.title}}</title>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="mainReceitaDetalhe">
+    
+     {% include 'Parts/filds.njk'%}
+
+    </main>
+    <script src="/scriptReceitaDetalhe.js"></script>
+{% endblock %}

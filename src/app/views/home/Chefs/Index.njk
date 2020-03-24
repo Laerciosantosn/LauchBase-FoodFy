@@ -1,0 +1,51 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>Chefs - Foodfy</title>
+{% endblock %}
+
+
+{% block content %}
+
+    <main id="main" class="mainReceitasAdmin">
+        <section class="sectionTitle">
+            <h2>Chefs - Foodfy</h2>
+        </section>
+        
+        <div id="cardsChefs">
+
+            {% for chef in chefs %}
+
+                <div class="cardChef" id="{{ chef.id }}" >
+
+                    <div class="cardImage">
+                        <a href="/chef/{{ chef.id }}"><img class="link_image" src="{{ chef.src }}" ></a>
+                    </div>
+                    <section class="section">
+                        <div class="cardTitle">
+                            <a class="link_title" href="/chef/{{ chef.id }}">{{ chef.name }}</a>
+                        </div>
+                        <div class="cardTotalRecipes">
+                        {% if chef.total_recipes > 1 %}
+                            <h5>{{ chef.total_recipes }} recips</p>
+                            {% else %}
+                            <h5>{{ chef.total_recipes }} recip</p>
+                        {% endif %}    
+                        </div>
+                    </section>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </main>
+
+
+
+    {# <script src="/scriptDetalhe.js"></script> #}
+
+
+
+{% endblock %}
+

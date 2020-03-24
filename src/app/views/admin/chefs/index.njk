@@ -1,0 +1,43 @@
+{% extends "LayoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main" class="mainReceitasAdmin">
+        <section class="sectionTitle">
+            <h2>Manage chefs</h2>
+            <a href="/admin/chefs/create">Add chefs</a>
+        </section>
+
+        <div id="cardsChefs">
+
+            {% for chef in chefs %}
+
+                <div class="cardChef" id="{{ chef.id }}">
+
+                    <div class="cardImage">
+                        <a href="/admin/chefs/{{ chef.id }}"><img class="link_image" src="{{chef.src}}" name="/admin/chefs/{{ chef.id }}"></a>
+                    </div>
+                    <section class="section">
+                        <div class="cardTitle">
+                            <a href="/admin/chefs/{{ chef.id }}"><h3 class="link_title" >{{chef.name}}</h3></a>
+                        </div>
+                        <div class="cardVisualizar">
+                            <a href="/admin/chefs/{{ chef.id }}">Visualize</a>
+                        </div>
+                    </section>
+                </div>
+ 
+            {% endfor %}
+
+        </div>
+
+        {# pagintate #}
+        <div class="pagination"
+            data-page={{pagination.page}}
+            data-total={{pagination.total}}
+        >
+        </div>
+
+    </main>
+
+{% endblock %}

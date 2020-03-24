@@ -1,0 +1,17 @@
+{% extends "LayoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main" class="mainAdminDetalhe">
+        <section class="sectionTitle">
+            <h3>Chef:
+                {{ chef.name }}</h3>
+            <a href="{{ chef.id }}/edit">
+                <p>Editar chef</p>
+            </a>
+        </section>
+        {% include 'Parts/chefShow.njk'%}
+
+    </main>
+
+{% endblock content %}

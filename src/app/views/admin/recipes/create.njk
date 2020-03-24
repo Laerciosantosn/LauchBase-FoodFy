@@ -1,0 +1,24 @@
+{% extends "layoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main">
+
+        <section class="sectionTitle">
+            <h2>Criate an recipe/h2>
+            <div class="divButton">
+                <button class="salvar" type="submit" form="post">Save recipe</button>             
+            </div> 
+        </section>
+
+        <section class="form">
+
+            <form method="POST" action="/admin/recipes" id="post" enctype="multipart/form-data">
+
+                {% include 'Parts/FormsRecipes.njk'%}
+
+            </form>
+        </section>
+
+    </main>
+{% endblock content %}

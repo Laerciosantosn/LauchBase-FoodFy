@@ -1,0 +1,25 @@
+{% extends "Layout.njk" %}
+
+{% block head %}
+    <title>Login in Foodfy</title>
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="loginbox">
+   <i class="material-icons avatar">account_circle</i>
+    <h1>Login</h1>
+    <form action="">
+      <p>Username</p>
+      <input type="text" name="" placeholder="Enter Username">
+      <p>Password</p>
+      <input type="password" name="" placeholder="Enter Password">
+      <input type="submit" name="" value="Login">
+      <div class="textLogin">
+        <a href="/users/forgot-password"> Lost your password?</a>
+        <a href="/users/password-reset">Reset Password</a>
+      </div>
+    </form>
+  </div>
+  </main>
+{% endblock %}

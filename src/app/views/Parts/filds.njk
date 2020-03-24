@@ -1,0 +1,62 @@
+        <div class="bannerCardRecipe gallery">
+            <div class="bannerCardRecipeImage highlight">
+                <img src="{{files[0].src}}" 
+                alt="{{files[0].name}}">
+            </div>
+          
+          
+           <div class="gallery-preview">
+                {% for image in files %}
+                    <img 
+                        src="{{ image.src }}" 
+                        alt="{{ image.name }}"
+                        {% if loop.index0 == 0 %}
+                            class="active"
+                        {% endif %}
+                        onclick="ImageGallery.setImage(event)"
+                    >
+                {% endfor %}
+
+           </div>
+            
+
+            <div class="bannerCardRecipeTitle">
+                <h1>{{recipe.title}}</h1>
+            </div>
+
+            <div class="bannerCardRecipeAuthor">
+                <p>{{recipe.chef}}</p>
+            </div>
+
+        </div>
+
+        <div class="ingredients title">
+           
+            <h3>Ingredients<span class="span">SHOW</span></h3>
+            
+            <div id="itemsIgredients">
+                <ul>
+                    {% for itemsIgredients in recipe.ingredients %}
+                        <li>{{ itemsIgredients }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3>Mode of preparation<span class="span">SHOW</span></h3>
+            <div>
+                <ul>
+                    {% for preparation in recipe.preparation %}
+                        <li>{{ preparation }}</li>
+                    {% endfor%}
+                </ul>
+            </div>
+        </div>
+
+        <div class="title">
+            <h3>Additional information<span class="span">SHOW</span></h3>
+            <ul>     
+                <li>{{ recipe.information }}</li>    
+            </ul>
+        </div>

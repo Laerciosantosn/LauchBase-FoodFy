@@ -1,0 +1,20 @@
+{% extends "LayoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main" class="mainAdminDetalhe">
+        <section class="sectionTitle">
+            <h3>Recipe: {{recipe.title}}</h3>
+            <a href="{{ recipe.id }}/edit">
+                <p>Edit recipe</p>
+            </a>
+        </section>
+        {% include 'Parts/filds.njk'%}
+
+    </main>
+
+{% endblock content %}
+
+{% block footer %}
+    {% include 'fildsFooter.njk'%}
+{% endblock footer%}

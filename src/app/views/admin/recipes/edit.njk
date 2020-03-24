@@ -1,0 +1,48 @@
+{% extends "layoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main">
+
+        <section class="sectionTitle">
+            <h2>Manage recipes</h2>
+            <div class="divButton">
+
+                <form action="/admin/recipes?_method=DELETE" method="POST" class="deletar">
+                    <input type="hidden" name="id" value="{{ recipe.id }}">
+                    <button type="submit">Delete</button>
+                </form>
+
+                <button class="salvar" type="submit" form="post">Update recipe</button>
+
+            </div>
+
+        </section>
+            
+        <section class="form">
+
+            <form method="POST" action="/admin/recipes?_method=PUT" id="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ recipe.id }}">
+
+                {% include 'Parts/FormsRecipes.njk'%}
+
+            </form>
+
+        </section>
+        
+    </main>
+
+{% endblock content %}
+
+{% block script %}
+    <script>
+        const formDelete = document.querySelector(".deletar")
+        formDelete.addEventListener("submit", function (event) {
+            const confirmation = confirm("Deseja Deletar?")
+            if (!confirmation) {
+                event.preventDefault()
+            }
+        })
+    </script>
+    <script src="/scriptNewCampo.js"></script>
+{% endblock script %}

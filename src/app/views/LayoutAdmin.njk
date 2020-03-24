@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        
+        {% include "Parts/Styles.njk" %}
+
+        <title>Foodfy</title>
+
+    </head>
+
+    <body>
+    
+{% block header %}
+    {% include "Parts/HeaderAdmin.njk" %}
+{% endblock header %}
+
+        <!-- Tudo que for de outras paginas sera add no block content -->
+        {% block content %}{% endblock %}
+
+        {# {% include "Parts/Footer.njk" %} #}
+    {% block script %}{% endblock script %}
+        <script src="/scripts.js"></script>
+        {# <script src="/scriptNewCampo.js"></script> #}
+
+    </body>
+
+</html>

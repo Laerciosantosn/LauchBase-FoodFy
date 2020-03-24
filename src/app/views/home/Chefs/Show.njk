@@ -1,0 +1,20 @@
+{% extends "Layout.njk" %}
+
+{% block head %}
+    <title>Receita -
+        {{ chef.name }}</title>
+{% endblock %}
+
+{% block content %}
+
+    <main id="main" class="mainAdminDetalhe">
+        <section class="sectionTitle">
+            <h2>Chef:
+                {{ chef.name }}</h2>
+        </section>
+
+        {% include 'Parts/chefShow.njk'%}
+
+    </main>
+
+{% endblock content %}

@@ -1,0 +1,60 @@
+{% extends "LayoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main">
+    
+        <section class="sectionTitle">
+            <h2>Manage chefs</h2>
+            {% if chef.total_recipes >= 1 %}
+                <p class="message"></p>
+            {% endif %}
+
+            <div class="divButton">
+                <form action="/admin/chefs?_method=DELETE" method="POST" class="deletar">
+                    <input type="hidden" name="id" value="{{ chef.id }}">
+                    {% if chef.total_recipes == 0 %}
+                        <button type="submit" >Delete</button>
+
+                    {% else %}
+                        <button type="submit" class="disabled" >Delete</button>
+
+                    {% endif %}
+                </form>
+
+                <button class="salvar" type="submit" form="post">Update chef</button>
+            </div>
+        </section>
+
+        <section class="form">
+
+            <form method="POST" action="/admin/chefs?_method=PUT" id="post" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="{{ chef.id }}">
+                <input type="hidden" name="file_id" value="{{ file[0].id }}">
+                
+                {% include 'Parts/FormsChefs.njk'%}         
+
+            </form>
+
+        </section>
+
+    </main>
+
+{% endblock content %}
+
+{% block script %}
+    <script>
+        const formDelete = document.querySelector(".deletar")
+        formDelete.addEventListener("submit", function (event) {
+            const confirmation = confirm("Deseja Deletar?")
+            if (!confirmation) {
+                event.preventDefault()
+            }
+        })
+        const disabled = document.querySelector(".disabled")
+        disabled.addEventListener("click", function(){
+            this.disabled=true
+            const message = document.querySelector(".message").innerHTML="Chefs que possuem receitas não podem ser deletados"
+        })
+    </script>
+{% endblock script %}

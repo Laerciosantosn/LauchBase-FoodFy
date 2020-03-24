@@ -1,0 +1,12 @@
+{% extends "Layout.njk" %}
+{% import "parts/SectionRecipes.njk" as section %}
+
+{% block content %}
+
+<main id="main" class="mainReceitas">
+    {{ section.recipes('The best recipes of Foodfy', recipes) }}
+</main>
+  
+<script src="/scriptDetalhe.js"></script>
+{% endblock content %}
+
