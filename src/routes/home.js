@@ -1,10 +1,17 @@
 const express = require('express')
-const routes = express.Router(express)
+const routes = express.Router()
 
 const HomeController = require('../app/controllers/HomeController')
+const SearchController = require('../app/controllers/SearchController')
+const SessionController = require('../app/controllers/SessionController')
 
 
-routes.get("/search", HomeController.search)
+// routes.get("/search", HomeController.search)
+// routes.get('/users/login', SessionController.indexLogin) 
+// routes.get('users/forgot-password', SessionController.indexForgotPassword)
+// routes.get('users/password-reset', SessionController.indexResetPassword)
+
+routes.get("/search", SearchController.index)
 
 routes.get("/", HomeController.index)
 routes.get("/about", HomeController.about)

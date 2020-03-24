@@ -13,10 +13,11 @@ module.exports = {
           
             return results.rows
 
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            console.error(error)
         }
-    }, async find(id) {
+    }, 
+    async find(id) {
         
         try {
             const query = `
@@ -28,12 +29,11 @@ module.exports = {
           
             return results.rows[0]
 
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            console.error(error)
         }
     },
     async recipeChef(id) {
-        
         try {
             const query = `
                 SELECT * FROM recipe_files WHERE recipe_id = $1
@@ -44,28 +44,38 @@ module.exports = {
           
             return results.rows[0]
 
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            console.error(error)
         }
     }, 
     create({recipe_id, file_id}) {
+        try {
         
-        const query = `
-        INSERT INTO recipe_files (
-          recipe_id,
-          file_id
-        ) VALUES ($1, $2)
-        RETURNING id
-    `
-        const values = [
-            recipe_id,
-            file_id
-        ]
+            const query = `
+                INSERT INTO recipe_files (
+                recipe_id,
+                file_id
+                ) VALUES ($1, $2)
+                RETURNING id
+            `
+            const values = [
+                recipe_id,
+                file_id
+            ]
         
-       return db.query(query, values)
+            return db.query(query, values)
+
+        } catch (error) {
+            console.error(error)
+        }
     }, 
     delete (id){
-        return db.query(`DELETE FROM recipe_files WHERE file_id = $1`, [id])
+        try {
+            return db.query(`DELETE FROM recipe_files WHERE file_id = $1`, [id])
+        } catch (error) {
+            console.error(error)
+        }
+        
     }
 
 }

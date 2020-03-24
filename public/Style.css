@@ -1,6 +1,15 @@
-html {
-    width:100vw;
+:root {
+    --primary-color : #d12b22;
+    --secondary-color : #ee352c;
 }
+
+/* html {
+    width:100vw;
+} */
+/* body,html
+ {
+    height: 100%;
+} */
 * {
     margin: 0;
     padding: 0;
@@ -41,13 +50,21 @@ body {
 main {
     width: 940px; 
     margin: 0 auto;
-    display: 1;
+}
+main {
+    padding: 8px;
+    border: 1px solid rgba(222,222,222, 0.15);
+    background: rgba(222,222,222, 0.15);
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px -3px rgba(0, 0, 0, 0.3);
+    margin-top: 30px;
 }
 
 #header section {
     height: 100%;
     display: grid;
-    grid-template-columns: 90.6px 1fr 346px;
+    grid-template-columns: 90.6px 1fr 346px 100px;
+    grid-gap: 10px;
     align-items: center;
 }
 nav {
@@ -57,17 +74,18 @@ nav a + a {
     margin-left: 30px;
 }
 .links a {
-    color: #953930;
+    color: var(--primary-color);
     position: relative;
+    font-weight: bold;
 }
 .links a.active {
-    color: #d54f44; 
+    color: var(--secondary-color); 
 }
 .links a::after {
     content: "";
     width: 0;
     height: 2px;
-    background-color:#d54f44;
+    background-color:var(--secondary-color);
     position: absolute;
     left: 0;
     bottom: -6px;
@@ -76,7 +94,7 @@ nav a + a {
 .links a:hover{
     width: 100%;
     transition: width 200ms ease-in-out ;
-    color: #d54f44;
+    color: var(--secondary-color);
 }
 #header form {
     display: flex;
@@ -102,9 +120,22 @@ nav a + a {
     height: 37px;
     color: #000000;
     font-weight: bold;
-    background: #953930;
+    background: var(--primary-color);
     cursor: pointer;
 }
+#header form button:hover {
+    background: var(--secondary-color);
+}
+.headerLogin a {
+    color:var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.headerLogin a:hover {
+    color: var(--secondary-color)
+}
+
 
 /* ===  BANNER ===*/
 
@@ -112,7 +143,7 @@ nav a + a {
     display: grid;
     grid-template-columns: 1fr 1fr;
     height: 366px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     border-radius: 30px;
     background: #FBDFDB;
     align-items: center;
@@ -166,10 +197,10 @@ nav a + a {
     }
 }
 
-#main {
+/* #main {
     display: flex;
     flex-direction: column;
-}
+} */
 
 #main h2{
     font-size: 24px;
@@ -225,7 +256,7 @@ nav a + a {
     text-align: center;
     padding: 23px;
     width: 100%;
-    /* margin-top: 50px; */
+    margin-top: 10px;
 }
 #footer p{
     font-size: 14px;
@@ -246,7 +277,7 @@ nav a + a {
     margin-top: 20px;
 }
 .containerText.last p {
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 /* === CHEFS ===*/
 
@@ -316,7 +347,7 @@ nav a + a {
     object-fit: cover;
 }
 .bannerCardRecipeTitle {
-    margin-top: 50px;
+    margin-top: 8px;
 }
 .bannerCardRecipeTitle h1 {
     font-size: 36px;
@@ -365,6 +396,29 @@ nav a + a {
     margin-bottom: 50px;
 }
 
+.gallery-preview {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    margin-top: 8px; 
+    justify-content: flex-end;
+}
+
+.gallery-preview img {
+    border: 1px solid #DDDDDD;
+    border-radius: 3.5px;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: 400ms;
+}
+.gallery-preview img:hover,
+.gallery-preview img.active {
+    opacity: 1;
+}
 /* === DETALHES CHEFS ===*/
 
 .bannerCardChefImage {
@@ -431,7 +485,7 @@ nav a + a {
 .cardRecipesChef .section a,
 .sectionTitle a,
 .cardVisualizar a{
-    background: #953930;
+    background: var(--primary-color);
     color: #111111;
     border-radius: 4px;
     font-size: 14px;
@@ -452,7 +506,6 @@ nav a + a {
     justify-content: space-between;
     align-items: center;
     height: 37px;
-    margin-top: 50px;
 }
 #main h2 {
     margin-top: 0;
@@ -494,7 +547,7 @@ button[type="submit"],
     font-weight: bold;
 }
 .divButton  button[type="submit"].salvar{
-    background: #953930;
+    background: var(--primary-color);
     width: 139px;
 }
 .form .item div {
@@ -509,7 +562,7 @@ button[type="submit"],
 }
 .add-ingredient,
 .add-passo {
-    background: #953930;
+    background: var(--primary-color);
     padding: 4px;
     cursor: pointer;
     margin-top: 8px;

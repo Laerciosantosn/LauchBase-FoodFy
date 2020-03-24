@@ -1,7 +1,24 @@
-        <div class="bannerCardRecipe">
-            <div class="bannerCardRecipeImage">
-                <img src="{{recipe.src}}" alt="">
+        <div class="bannerCardRecipe gallery">
+            <div class="bannerCardRecipeImage highlight">
+                <img src="{{files[0].src}}" 
+                alt="{{files[0].name}}">
             </div>
+          
+          
+           <div class="gallery-preview">
+                {% for image in files %}
+                    <img 
+                        src="{{ image.src }}" 
+                        alt="{{ image.name }}"
+                        {% if loop.index0 == 0 %}
+                            class="active"
+                        {% endif %}
+                        onclick="ImageGallery.setImage(event)"
+                    >
+                {% endfor %}
+
+           </div>
+            
 
             <div class="bannerCardRecipeTitle">
                 <h1>{{recipe.title}}</h1>

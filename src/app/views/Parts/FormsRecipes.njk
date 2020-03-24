@@ -3,32 +3,29 @@
     <div id="imageContainer">
         <div id="photos-upload">
             <input 
-                id="photos-input"
+                id="photos-input" 
                 type="file" 
                 name="photos" 
-                multiple
-                accept="image/*"
-                onchange="PhotosUpload.handleFileInput(event, totalPage = 5)"
-            > 
-             <i class="material-icons">add</i> 
+                multiple="multiple" 
+                accept="image/*" 
+                onchange="PhotosUpload.handleFileInput(event, totalPage = 5)">
+            <i class="material-icons">add</i>
         </div>
-    <div id="photos-preview">
-        {% if files %}
+        <div id="photos-preview">
+            {% if files %}
 
-            {% for image in files %} 
-                <div class="photo" id="{{ image.id }}">
-                    <img src="{{ image.src }}" alt=" {{ image.name }} ">
-                    <i class="material-icons"
-                        onclick="PhotosUpload.removeOldPhoto(event)"
-                    >close</i>                        
-                </div>
-            {% endfor %}
-            <input type="hidden" name="removed_files">
-        {% endif %}
-    </div> 
-    </div> 
+                {% for image in files %}
+                    <div class="photo" id="{{ image.id }}">
+                        <img src="{{ image.src }}" alt=" {{ image.name }} ">
+                        <i class="material-icons" 
+                        onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>
+    </div>
 </div>
-
 
 <div class="item">
     <p>Name of recipe</p>
@@ -65,8 +62,7 @@
                 </div>
             {% endif %}
         </div>
-        <button type="button" class="add-ingredient"
-        onclick="addNewImput.addIngredient(event)">Add new ingredient</button>
+        <button type="button" class="add-ingredient" onclick="addNewImput.addIngredient(event)">Add new ingredient</button>
     </div>
 
     <div class="item">
@@ -82,18 +78,17 @@
                 <div class="passo">
                     <input type="text" name="preparation[]" value="{{ preparation }}" placeholder="Passo"/>
                 </div>
-            {% endif%}
+                {% endif%}
 
+            </div>
+            <button type="button" class="add-passo" onclick="addNewImput.addPasso(event)">Add new step</button>
         </div>
-        <button type="button" class="add-passo"
-        onclick="addNewImput.addPasso(event)">Add new step</button>
-    </div>
 
-{% endblock add %}
+    {% endblock add %}
 
-<div class="item">
-    <p>Aditionals information</p>
-    <div>
-        <textarea name="information" id="textArea" cols="30" rows="10">{{ recipe.information }}</textarea>
+    <div class="item">
+        <p>Aditionals information</p>
+        <div>
+            <textarea name="information" id="textArea" cols="30" rows="10">{{ recipe.information }}</textarea>
+        </div>
     </div>
-</div>

@@ -3,7 +3,7 @@ const db = require('../../config/db')
 module.exports = {
     
     async create({filename, path}) {
-
+        
         try {
             const query = `
                 INSERT INTO files (
@@ -20,35 +20,48 @@ module.exports = {
             const results = await db.query(query, values)
           
             return results.rows[0]
-
         
-        } catch (err) {
-            console.error(err)
+        } catch (error) {
+            console.error(error)
         }
     },
     async all(id) {
-      
-        const query = `
-            SELECT * FROM files WHERE id = $1
-        `
-        const values = [id]
-        const results = await db.query(query, values)
-        
-        return results.rows[0]
+        try {
+     
+            const query = `
+                SELECT * FROM files WHERE id = $1
+            `
+            const values = [id]
+            const results = await db.query(query, values)
+            
+            return results.rows[0]
+
+        } catch (error) {
+            console.error(error)
+        }    
     },
     async find(id){
-        const query = `
-            SELECT * FROM files WHERE id = $1
-        `
-        const values = [id]
-
-        const results = await db.query(query, values)
+        try {
         
-        return results.rows[0]
+            const query = `
+                SELECT * FROM files WHERE id = $1
+            `
+            const values = [id]
+
+            const results = await db.query(query, values)
+            
+            return results.rows[0]
+
+        } catch (error) {
+            console.error(error)
+        }
     },
     delete(id) {
-    
-        return db.query(`DELETE FROM files WHERE id = $1`, [id])
+        try {
+            return db.query(`DELETE FROM files WHERE id = $1`, [id])
+        } catch (error) {
+            console.error(error)
+        }
     }
     
 }

@@ -9,7 +9,7 @@
                     <div class="photo" id="{{ image.id }}">
                         <img src="{{ image.src }}" alt="{{ image.name }}">
                         <i class="material-icons" 
-                            onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                        onclick="PhotosUpload.removeOldPhoto(event)">close</i>
                     </div>
                 {% endfor %}
                 <input type="hidden" name="removed_files">
@@ -22,9 +22,9 @@
             id="photos-input" 
             type="file" 
             name="photo" 
+            multiple="multiple" 
             accept="image/*" 
-            onchange="PhotosUpload.handleFileInput(event, totalPage= 1)"
-        >
+            onchange="PhotosUpload.handleFileInput(event, totalPage= 1)">
         <i class="material-icons">add</i>
     </div>
 </div>

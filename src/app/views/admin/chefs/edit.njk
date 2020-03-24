@@ -1,7 +1,9 @@
 {% extends "LayoutAdmin.njk" %}
 
 {% block content %}
+
     <main id="main">
+    
         <section class="sectionTitle">
             <h2>Manage chefs</h2>
             {% if chef.total_recipes >= 1 %}
@@ -25,14 +27,19 @@
         </section>
 
         <section class="form">
+
             <form method="POST" action="/admin/chefs?_method=PUT" id="post" enctype="multipart/form-data">
                 <input type="hidden" name="id" value="{{ chef.id }}">
+                <input type="hidden" name="file_id" value="{{ file[0].id }}">
                 
-       {% include 'Parts/FormsChefs.njk'%}         
+                {% include 'Parts/FormsChefs.njk'%}         
 
             </form>
+
         </section>
+
     </main>
+
 {% endblock content %}
 
 {% block script %}

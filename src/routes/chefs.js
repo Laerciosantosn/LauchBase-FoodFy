@@ -9,8 +9,9 @@ routes.get('/', ChefsController.index)
 routes.get('/create', ChefsController.create)
 routes.get('/:id', ChefsController.show)
 routes.get('/:id/edit', ChefsController.edit)
+
 routes.post('/', multer.single('photo'), ChefsController.post)
-routes.put('/', multer.single('photo'), ChefsController.put)
+routes.put('/', multer.array("photo", 1), ChefsController.put)
 routes.delete('/', ChefsController.delete)
 
 module.exports = routes
