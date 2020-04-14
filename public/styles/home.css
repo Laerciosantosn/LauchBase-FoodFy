@@ -1,0 +1,61 @@
+/* ===  BANNER ===*/
+
+#banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 366px;
+  border-radius: 30px;
+  background: #FBDFDB;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+#bannerContainer {
+  margin-left: 60px;
+}
+
+#bannerContainerTitle h1{
+  font-size: 28px;
+  color: #111111;
+  margin-bottom: 10px;
+  width: 305px;
+  animation: textH1 2s ease-in-out;
+}
+
+@keyframes textH1 {
+  0% {
+    
+      letter-spacing: 1.5px;
+  }
+} 
+
+#bannerContainerText p {
+  opacity: 0.7;
+  font-size: 18px;
+  color: #000000;
+  line-height: 28px;
+  animation: textP 2s ease-in-out;
+}
+
+@keyframes textP {
+  0% {
+      opacity: 0;
+      margin-bottom: -20px
+  }
+} 
+
+#bannerContainerImg {
+  text-align: right;
+  margin-right: 100px;
+  align-self: end;
+  animation: imageChef 2s ease-in-out;
+}
+
+@keyframes imageChef {
+  0%{
+      margin-right: 0px; 
+  }
+  100%{
+      margin-right: 100px; 
+  }
+}

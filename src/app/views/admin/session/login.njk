@@ -9,17 +9,29 @@
   <div class="loginbox">
    <i class="material-icons avatar">account_circle</i>
     <h1>Login</h1>
-    <form action="">
+
+    <form method="POST" action="/users/login">
       <p>Username</p>
-      <input type="text" name="" placeholder="Enter Username">
+      <div>
+        <input 
+          id="email" 
+          {% if error %} class="erroremail" {% endif %}
+          type="email" 
+          name="email" 
+          placeholder="Enter Username" 
+          value="{{user.email}}" 
+          onblur="Validate.apply(this, 'isEmail')"
+          >
+      </div>
       <p>Password</p>
-      <input type="password" name="" placeholder="Enter Password">
-      <input type="submit" name="" value="Login">
+      <input type="password" name="password" placeholder="Enter Password" {% if error %} class="erroremail" {% endif %}>
+      <input type="submit" value="Login">
       <div class="textLogin">
         <a href="/users/forgot-password"> Lost your password?</a>
-        <a href="/users/password-reset">Reset Password</a>
+        <a href="/users/reset-password">Reset Password</a>
       </div>
     </form>
+
   </div>
   </main>
 {% endblock %}

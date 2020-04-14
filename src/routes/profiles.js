@@ -1,10 +1,12 @@
 const express = require('express')
 const routes = express.Router()
-const multer = require('../app/middlewares/multer')
 
 const ProfileController = require('../app/controllers/ProfileController')
+const { onlyUsers } = require('../app/middlewares/session')
+const profileValidator = require('../app/validators/profile')
 
-routes.get('/', ProfileController.index)
-routes.put('/', ProfileController.put)
+
+routes.get('/', onlyUsers, ProfileController.index)
+routes.put('/', onlyUsers, profileValidator.put, ProfileController.put)
 
 module.exports = routes

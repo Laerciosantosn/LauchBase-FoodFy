@@ -2,7 +2,7 @@ const db = require('../../config/db')
 
 module.exports = {
     async all(id) {
-        
+       
         try {
             const query = `
                 SELECT * FROM recipe_files WHERE recipe_id = $1
@@ -17,6 +17,26 @@ module.exports = {
             console.error(error)
         }
     }, 
+    async findAll(id) {
+        try {
+            let query = `SELECT * FROM recipe_files`
+
+            Object.keys(filters).map(key => {
+                // WHERE | OR | AND
+                query = `${query}
+            ${key}`
+
+                Object.keys(filters[key]).map(field => {
+                    query = `${query} ${field} = '${filters[key][field]}' ORDER BY created_at DESC`
+                })
+            })
+
+            const results = await db.query(query)
+            return results.rows
+        } catch (error) {
+            console.error(error)
+        }
+    },
     async find(id) {
         
         try {

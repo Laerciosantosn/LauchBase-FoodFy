@@ -1,19 +1,19 @@
 const express = require('express')
 const routes = express.Router()
 
-const multer = require('../app/middlewares/multer')
-
-const SessionController = require('../app/controllers/SessionController')
+// const SessionController = require('../app/controllers/SessionController')
 const UserController = require('../app/controllers/UserController')
+const userValidator = require('../app/validators/user')
+const { onlyUsers, onlyAdmin } = require('../app/middlewares/session')
 
-routes.get('/login', SessionController.indexLogin) 
-routes.get('/forgot-password', SessionController.indexForgotPassword) 
-routes.get('/password-reset', SessionController.indexResetPassword) 
+// user register UserController
+routes.get('/', onlyUsers, onlyAdmin, UserController.list) 
+routes.get('/create', onlyUsers, onlyAdmin, UserController.create) 
+routes.get('/:id', onlyUsers, onlyAdmin, UserController.show) 
+routes.get('/:id/edit', onlyUsers, onlyAdmin, UserController.edit) 
 
-
-// routes.get('/', UserController.list) 
-// routes.post('/', UserController.post) 
-// routes.put('/', UserController.put) 
-// routes.delete('/', UserController.delete) 
+routes.post('/', onlyUsers, onlyAdmin, userValidator.post, UserController.post)
+routes.put('/', onlyUsers, onlyAdmin, userValidator.put, UserController.put) 
+routes.delete('/', onlyUsers, onlyAdmin, userValidator.userDelete, UserController.delete) 
 
 module.exports = routes

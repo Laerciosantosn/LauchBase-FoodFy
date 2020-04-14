@@ -10,13 +10,13 @@
     <main id="main" class="mainReceitas">
     {{ section.recipes('Buscando por: ', recipes, filter) }}
 
-     <div class="pagination"
-            data-page={{pagination.page}}
-            data-total={{pagination.total}}
-            data-filter={{filter}}
-        >
-        <h1>{{pagination.page}}</h1>
-        <h1>{{pagination.total}}</h1>
+        <div class="pagination"
+                data-page={{pagination.page}}
+                data-total={{pagination.total}}
+                data-filter={{filter}}
+            >
+            <h1>{{pagination.page}}</h1>
+            <h1>{{pagination.total}}</h1>
         </div>
 
         {# <h2>Buscando por: "{{ filter }}"</h2>

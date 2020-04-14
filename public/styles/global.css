@@ -1,0 +1,243 @@
+:root {
+  --primary-color : #d12b22;
+  --secondary-color : #ee352c;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  list-style-position: inside;
+  list-style: none;
+}
+
+body {
+  background: white;
+  font-family: 'Roboto', sans-serif;
+  display: grid;
+  grid-template-rows: 93px 1fr 62px;
+  min-height: 100vh;
+  /* flex-direction: column; */
+}
+
+#cardsRecipes, 
+#cardsChefs {
+  display: grid;
+  gap: 15px;
+  row-gap: 30px;
+  margin-bottom: 50px;
+}
+
+/* === HEADER === */
+
+#header {
+  height: 93px;
+  background: #111;
+  position: relative;
+}
+#header section,
+main {
+  width: 940px; 
+  margin: 0 auto;
+}
+main {
+  margin-top: 30px;
+}
+
+#header section {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 90.6px 400px 1fr ;
+  grid-gap: 10px;
+  align-items: center;
+}
+nav {
+  margin-left: 122.4px;   
+}
+nav a{
+  text-transform: uppercase;   
+}
+nav a + a {
+  margin-left: 30px;
+}
+
+#header section .searchButon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+#header.admin section .searchButon{
+  justify-content: flex-end;
+}
+#header section .button {
+  justify-self: end;
+}
+#header section nav a {
+ 
+  color: var(--primary-color);
+  position: relative;
+  font-weight: bold;
+}
+#header section a.active {
+  color:greenyellow; 
+}
+#header section nav a::after{
+  content: "";
+  width: 0;
+  height: 2px;
+  background-color:var(--secondary-color);
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+}
+#header section nav a:hover::after,
+#header section nav a:hover{
+  width: 100%;
+  transition: width 200ms ease-in-out ;
+  color: var(--secondary-color);
+}
+#header form {
+  display: flex;
+  justify-self: end;
+}
+#header form input,
+#header form button {
+  border-radius: 4px;
+  font-size: 16px;
+}
+#header form input{
+  width: 246px;
+  height: 37px;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  margin-right: 8px;
+  color: #666666;
+  outline: none;
+  padding-left: 16px;
+}
+#header form button{
+  width: 91px;
+  height: 37px;
+  color: #000000;
+  font-weight: bold;
+  background: var(--primary-color);
+  cursor: pointer;
+}
+#header form button:hover {
+  background: var(--secondary-color);
+}
+.headerLogin .signin {
+  color:var(--primary-color);
+  padding: 10px;
+}
+.headerLogin #menu {
+  color:var(--primary-color);
+  font-size: 37px;
+ 
+}
+.headerLogin a:hover {
+  color: var(--secondary-color)
+}
+
+/* === PHOTOS UPLOAD === */
+form .item #photos-upload {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 150px;  
+  border: solid 1px #DDDDDD;
+  height: 150px; 
+  display: flex;
+  justify-content: center;  
+  border-radius: 3.5px; 
+}
+
+.form .item div {
+  margin-bottom: 0px;
+}
+
+form .item #photos-upload i {
+  position: absolute;
+  display: flex;
+  color: #777777;
+  font-size: 28px;  
+  align-self: center;
+}
+
+form .item #photos-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 10;
+}
+
+#photos-preview {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 8px;
+  width: 150px; 
+  height: 150px; 
+}
+
+#photos-preview img {
+  width: 150px; 
+  height: 150px; 
+  border-radius: 3.5px; 
+  border: solid 1px #DDDDDD;
+  object-fit: cover;
+}
+
+#photos-preview .photo{
+  position: relative;
+}
+
+#photos-preview .photo i {
+  position: absolute;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(222,222,222, 0.85);
+  color: red;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 500ms;
+  font-size: 28px;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#photos-preview .photo:hover i{
+  opacity: 1;
+}
+
+.item #imageContainer{
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-gap: 10px; 
+}
+/* ADMIN SECTIO TITLE */
+.sectionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 8px;
+  border-radius: 8px;
+
+  border: 1px solid rgba(222,222,222, 0.15);
+  background: rgba(222,222,222, 0.15);
+
+  margin-bottom: 8px;
+}

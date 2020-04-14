@@ -1,0 +1,148 @@
+#main h2 {
+    margin-bottom: 20;
+}
+.sectionTitle a{
+    height: 37px;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+.titleRecips {
+margin-bottom: 20px;
+}
+/* === ADMIN CREATE RECIPES === */
+.form input, textarea, select {
+    height: 49px;
+    width: 100%;
+    outline: none;
+    color: #111;
+    font-size: 16px;
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    margin-bottom: 10px;
+} 
+textarea{
+    min-height: 257px;
+    margin-bottom: 50px;
+}
+button[type="submit"]{
+    height: 37px;
+}
+.divButton {
+    display: flex;
+
+    /* grid-template-columns: 1fr 1fr;
+    grid-gap: 10px; */
+}
+form.deletar button[type="submit"]{
+    width: 139px;
+    background: rgb(223, 21, 7);
+    margin-right: 16px;
+}
+button[type="submit"],
+.add-ingredient,
+.add-passo {   
+    border-radius: 4px;
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+}
+.divButton  button[type="submit"].salvar{
+    background: #7159C1;
+    width: 139px;
+}
+.divButton .cancel {
+    margin-left: 16px;
+    font-size: 16px;
+    background: #8A8A8A;
+}
+.form .item div {
+    margin-bottom: 15px;
+}
+.form .item p {
+    font-size: 16px;
+    color: #111111;
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 30px;
+}
+.add-ingredient,
+.add-passo {
+    background: var(--primary-color);
+    padding: 4px;
+    cursor: pointer;
+    margin-top: 8px;
+}
+/* === ADMIN DETAIL RECIPES === */
+.mainAdminDetalhe .span {
+    display: none;
+}
+#main.mainAdminDetalhe h2{
+margin-top: 50px;
+}
+.mainAdminDetalhe ul {
+    display: block;
+}
+
+/* === ADMIN CARD RECIPES === */
+#cardsRecipesChef,
+#adminCardsRecipes{
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+   gap: 20px; 
+   margin-top: 36px;
+}
+.cardRecipesChef .cardImage {
+   height: 80px;
+   overflow: hidden;
+   border-radius: 8px;
+}
+.cardRecipesChef {
+   display: flex;
+   align-items: center; 
+   padding: 8px;
+   background-color: #fff;
+   border-radius: 8px;
+   box-shadow: 2px 2px 2px -2px rgba(222,222,222, 0.5) ;
+}
+.cardRecipesChef img {
+   width: 172px;
+   height: 80px;
+   object-fit: cover;
+}
+.cardRecipesChef .section {
+   margin-left: 20px;
+}
+.cardRecipesChef .section .cardTitle a{
+   font-size: 18px;
+   color: #111111;
+   cursor: pointer;
+   background: none;
+}
+.cardRecipesChef .section p {
+   margin-top: 5px;
+   margin-bottom: 10px;
+   font-size: 14px;
+   color: #777777;
+}
+.cardRecipesChef .section a,
+.sectionTitle a,
+.cardVisualizar a{
+   background: var(--primary-color);
+   color: #111111;
+   border-radius: 4px;
+   font-size: 16px;
+   font-weight: bold;
+}
+.cardVisualizar {
+   margin-top: 10px;
+
+}
+.cardVisualizar a{
+   padding: 2px;
+}

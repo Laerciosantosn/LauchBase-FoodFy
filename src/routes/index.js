@@ -4,28 +4,25 @@ const routes = express.Router()
 const Home = require('./home')
 const Recipes = require('./recipes')
 const Chefs = require('./chefs')
-// const Profiles = require('./profiles')
+const Profiles = require('./profiles')
 const Users = require('./users')
-
-
+const Session = require('./session')
 
 // === ROTA PARA A PAGINA HOME ===
 routes.use("/", Home)
 
-routes.use('/users', Users) 
-// routes.use('/admin/profile', Profiles)
+routes.use('/users', Session) 
+routes.use('/admin/users', Users) 
+routes.use('/admin/profile', Profiles)
 routes.use('/admin/recipes', Recipes)
 routes.use('/admin/chefs', Chefs)
 
-routes.get("/recipes/index", function(req, res){
-    return res.redirect("/admin/recipes")
-}) 
-
-routes.get("/chefs/index", function(req, res){
-    return res.redirect("/admin/chefs")
-})  
 
 routes.get('/accounts', function(req, res){
-    return res.redirect("/users/login")
+    return res.redirect("users/login")
+})
+
+routes.get('/about', function(req, res){
+    return res.render("home/About/index")
 })
 module.exports = routes

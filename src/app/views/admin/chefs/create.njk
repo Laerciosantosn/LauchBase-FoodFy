@@ -1,17 +1,14 @@
 {% extends "LayoutAdmin.njk" %}
+{% import "parts/SectionHeaderCreate.njk" as section %}
 
 {% block content %}
+
     <main id="main">
-        <section class="sectionTitle">
-            <h2>Criate a chefs</h2>
-            <div class="divButton">
 
-                <button class="salvar" type="submit" form="post">Save chef</button>
-
-            </div>
-        </section>
-
+        {{ section.headerCreate('Criate a chefs') }}
+   
         <section class="form">
+        
             <form method="POST" action="/admin/chefs" id="post" enctype="multipart/form-data">
 
                 {% include 'Parts/FormsChefs.njk'%}

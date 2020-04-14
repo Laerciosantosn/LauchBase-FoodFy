@@ -1,0 +1,31 @@
+{% extends "layoutAdmin.njk" %}
+{% import "parts/SectionHeaderCreate.njk" as section %}
+
+{% block content %}
+
+  <main id="main" class="mainUsers">
+    {{ section.headerCreate('Welcome', user.name, session.userAdmin) }}
+    <div class="cardsAdmin">
+
+      <section class="form">
+        <form method="POST" action="/admin/profile?_method=PUT" id="post">
+          <div class="item ">
+            {% include 'Parts/FormsUsers.njk'%}
+            <div>
+              <p>Password</p>
+              <input class="password" type="password" name="password">
+            </div>
+          </div>
+          <input type="hidden" name="id" value="{{ user.id }}">
+        </form>
+      </section>
+
+    </div>
+
+  </main>
+
+{% endblock %}
+
+{% block footer %}
+  {% include 'fildsFooter.njk'%}
+{% endblock footer%}

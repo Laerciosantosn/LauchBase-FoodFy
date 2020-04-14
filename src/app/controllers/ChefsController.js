@@ -7,53 +7,27 @@ const File = require('../models/file')
 module.exports = {
     async index(req, res) { 
        try {
-            // Inicio do paginate
-            let { page, limit } = req.query
-        
-                page = page || 1
-                limit = limit || 2
-                let offset = limit * (page - 1)
-            
-            let pagination
-           
-            const params = {  
-                page,
-                limit,
-                offset,
-                callback(chefs){
-                    if(chefs[0]){
-                        pagination = {
-                            total: Math.ceil(chefs[0].total / limit),
-                            page
-                        }
-                    }
-                }
-            }
-            await Chefs.paginate(params)
             
             const chefsPromise =  await Chefs.allchefs()
             const Result = await Promise.all(chefsPromise)
             
-
             const chefs = await Result.map(file => ({
                 ... file,
                 src: `${file.path.replace("public","")}`
             }))
-            return res.render("admin/chefs/index", { chefs, pagination })
+
+            return res.render("admin/chefs/index", { chefs })
 
         } catch (error) {
            console.error(error)
         }
     },
     create(req, res) {
-        try {
-            return res.render("admin/chefs/create")
-        } catch (error) {
-           console.error(error) 
-        }
+        return res.render("admin/chefs/create")
     },
     async post(req, res) {
         try {
+
             if (req.body.name == "") {
                 return res.send("Please, fill all filds")
             }
@@ -63,20 +37,26 @@ module.exports = {
             }
 
             const resultFile = await File.create(req.file)
-            const fileId = resultFile
-        
+            const fileId = resultFile.id
+            
             await Chefs.create({...req.body, file_id: fileId})
             
-            return res.redirect(`chefs`)
+            return res.render("admin/chefs/create", {
+                success: "Account successfully created "
+            })
 
         } catch (error) {
             console.error(error)
+            return res.render("admin/chefs/create", {
+                users,
+                error: "Something went wrong!"
+            })
         } 
     },
     async show(req, res) {
         try {
             const chef =  await Chefs.find(req.params.id)
-
+       
             let chefResult = await Chefs.findchef(chef.file_id, chef.id)
         
             chefResult = {
@@ -131,7 +111,7 @@ module.exports = {
 
         for(key of keys){
             if(req.body[key] == '' && key != 'removed_files'){
-                return res.send('Preenca todos os campos')
+                return res.send('Fill all fields')
             }
         }
 

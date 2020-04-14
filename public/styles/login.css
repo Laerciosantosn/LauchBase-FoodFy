@@ -3,8 +3,8 @@
   height: 520px;
   background: #000;
   color: #fff;
-  top: 50%;
   left: 50%;
+  top: 50%;
   position: absolute;
   transform: translate(-50%, -50%);
   box-sizing: border-box;
@@ -26,7 +26,7 @@
 }
 h1 {
   margin: 0;
-  padding: 0 0 20px;
+  padding: 0 0 30px;
   text-align: center;
   font-size: 22px;
 }
@@ -35,11 +35,17 @@ h1 {
   padding: 0;
   font-weight: bold;
 }
+.loginbox form p {
+  margin-top: 20px;
+}
 .loginbox input {
   width: 100%;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
-.loginbox input[type="text"], input[type="password"] {
+.loginbox input[type="submit"] {
+  margin-top: 20px;
+}
+.loginbox input[type="email"], .loginbox input[type="password"] {
   border: none;
   border-bottom: 1px solid #fff;
   background: transparent;
@@ -68,6 +74,7 @@ h1 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   text-align: center;
+  margin-top: 8px;
 }
 .loginbox a {
   justify-content: space-between;
@@ -78,4 +85,8 @@ h1 {
 }
 .loginbox a:hover {
   color: #ee352c;
+}
+.loginbox input.erroremail {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #F55A5A;
 }

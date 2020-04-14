@@ -1,0 +1,13 @@
+{% macro headerIndex(name, userAdmin) %}
+
+  <section class="sectionTitle">
+      <h2>Manage {{name}} </h2>
+      {% if userAdmin == false and name == 'recipes' %}
+          <a href="/admin/{{name}}/create">New</a>
+      {% elif userAdmin == true %} 
+      <a href="/admin/{{name}}/create">New</a>
+
+       {% endif %}
+  </section>
+
+{% endmacro %}

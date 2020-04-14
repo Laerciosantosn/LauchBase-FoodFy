@@ -1,27 +1,65 @@
-        <header id="header">
-            <section>
-                    <a href="/" class="logo"><img src="/images/logo2.png" alt=""></a>
-                  
-                        <nav class="links">
-                            <a href="/About">About</a>
-                            <a href="/Recipes">Recipes</a>
-                            <a href="/Chefs">Chefs</a>
-                        </nav>
+<header id="header">
+    <section>
+        <a href="/" class="logo"><img src="/images/logo2.png" alt=""></a>
 
-                    <form action="/Search" method="GET">
-                        <input 
-                        type="text" 
-                        name="filter" 
-                        placeholder="Find a Recipe" 
-                        value="{{ filter }}">
-                        <button type="submit">Search</button>
-                    </form>
-                    <div class="headerLogin">
-                        <a href="/accounts">
-                            <i class="material-icons">account_circle</i>
-                            Sign in
-                        </a>
-                    </div>    
-              
-            </section>
-        </header>
+        <nav class="links">
+            <a href="/About">About</a>
+            <a href="/Recipes">Recipes</a>
+            <a href="/Chefs">Chefs</a>
+        </nav>
+        <div class="searchButon">
+            <form class="search" action="/Search" method="GET">
+                <input type="text" name="filter" placeholder="Find a Recipe" value="{{ filter }}">
+                <button type="submit">Search</button>
+            </form>
+                {% include "parts/menu.njk" %}
+            {# <li class="headerLogin accounts">
+                {% if session.userId %}
+                    <a href="">
+                        <i class="material-icons" id="menu">
+                            menu
+                        </i>
+                    </a>
+                {% else %}
+                    <a href="/accounts" class="signin">
+                        Sign in
+                    </a>
+
+                {% endif %}
+
+                {% if session.userId %}
+                    <ul class="menu">
+
+                        <li class="item" id="profile">
+                            <p class="btn">{{session.userName}}</p>
+                            <p class="btn">{{session.userEmail}}</p>
+                        </li>
+
+                        <li class="item" id="recipes">
+                            <a href="/admin/recipes" class="btn">Recipes</a>
+                        </li>
+
+                        <li class="item" id="chefs">
+                            <a href="/admin/chefs" class="btn">Chefs</a>
+                        </li>
+
+                        <li class="item" id="users">
+                            <a href="/admin/users" class="btn">User</a>
+                        </li>
+
+                        <li class="item">
+                            <form action="/users/logout" method="POST">
+                                <button>Sign out
+                                    {{session.name}}</button>
+                            </form>
+                        </li>
+
+                    </ul>
+
+                {% endif %}
+
+            </li> #}
+        </div>
+    </section>
+</header>
+{% include "parts/messages.njk" %}

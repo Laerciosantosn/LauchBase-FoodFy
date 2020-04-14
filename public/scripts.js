@@ -3,7 +3,8 @@ const currentPage = location.pathname
 const menuItems = document.querySelectorAll("header .links a")
 
 for (item of menuItems) {
-    if (currentPage.includes(item.getAttribute("href"))) {
+
+    if (currentPage.includes(item.getAttribute("href"))) { 
         item.classList.add("active")
     }
 }
@@ -145,11 +146,6 @@ const addNewImput = {
     }
 }
 
-// Paginação
-// totalPage = 20
-// selectedPage = 15
-// [1,..., 13, 14, 15, 16, 17, ..., 20]
-
 function paginate(selectedPage, totalPage) {
     let pages = [],
         oldPage
@@ -220,4 +216,61 @@ const ImageGallery = {
         // Lightbox.image.src = target.src
     }
 }
+const Validate = {
+    apply (input, func) {
+        Validate.clearErrors(input)
+
+        let results = Validate[func](input.value)
+        input.value = results.value
+
+        if(results.error) {
+            Validate.displayError(input, results.error)
+        }
+
+        
+    },
+    displayError(input, error){
+      const inputEmail =  document.getElementById('email')
+      inputEmail.classList.add('erroremail')
+
+      const div = document.createElement('div')
+        div.classList.add('error')
+        div.innerHTML = error
+        input.parentNode.appendChild(div)
+
+        input.focus()
+    },
+    clearErrors(input){
+        const errorDiv = input.parentNode.querySelector(".error")
+
+        const inputEmail =  document.getElementById('email')
+        inputEmail.classList.remove('erroremail')
+
+        if(errorDiv){
+            errorDiv.remove()
+        }
+    },
+    isEmail(value){
+        let error = null
+        const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+        if(!value.match(mailFormat)) {
+            error = "Invalid email"
+        }
+
+        return{
+            error,
+            value
+        }
+    }
+}
+
+
+function confirmDelete (event) {
+    const confirmation = confirm("Want to delete?")
+    if (!confirmation) {
+        event.preventDefault()
+    }
+}
+
 

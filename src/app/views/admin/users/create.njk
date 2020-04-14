@@ -1,0 +1,25 @@
+{% extends "layoutAdmin.njk" %}
+{% import "parts/SectionHeaderCreate.njk" as section %}
+
+{% block content %}
+
+    <main id="main">
+
+        {{ section.headerCreate('Criate an user', "", session.userAdmin) }}
+        <div class="cardsAdmin">
+            <section class="form">
+
+                <form method="POST" action="/admin/users" id="post">
+                    <div class="item">
+                        {% include 'Parts/FormsUsers.njk'%}
+                        <div class="user">
+                            <input type="checkbox" name="is_admin" value="true" {% if user.is_admin == true %} checked="checked" {% endif %}>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+        </main>
+    </div>
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends "layoutAdmin.njk" %}
+
+{% block content %}
+
+    <main id="main">
+
+        <section class="sectionTitle">
+            <h2>Edit user</h2>
+            <div class="divButton">
+                <button class="salvar" type="submit" form="post">Update</button>             
+            </div> 
+        </section>
+<div class="cardsAdmin">
+        <section class="form">
+
+            <form method="POST" action="/admin/users?_method=PUT" id="post">
+                <div class="item">
+                        {% include 'Parts/FormsUsers.njk'%}
+                        <div class="user">
+                            <input type="checkbox" name="is_admin" value="true" {% if user.is_admin == true %} checked="checked" {% endif %}>
+                            <p>Administrator</p>
+                        </div>
+                    </div>
+
+                <input type="hidden" name="id" value="{{ user.id }}">
+
+            </form>
+        </section>
+</div>
+    </main>
+{% endblock content %}

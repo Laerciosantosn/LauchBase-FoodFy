@@ -1,0 +1,49 @@
+{% extends "layoutAdmin.njk" %}
+{% import "parts/SectionHeaderIndex.njk" as section %}
+
+{% block content %}
+
+    <main id="main" class="mainUsers">
+    {{ section.headerIndex('users' , session.userAdmin) }}
+     
+        <div class="cardsAdmin">
+
+            <div id="cardUser">
+
+                {% for user in users %}
+                <div class="cardUsers" id="{{ user.id }}">
+                  
+                    <section class="section">
+                        <div class="cardUser">
+                            <p class="cardName">{{user.name}}</p>
+                            <p class="cardEmail">{{user.email}}</p>
+                        </div>
+                       
+                        <div class="cardSetting">
+                            <a href="/admin/users/{{user.id}}/edit"><i class="material-icons">edit</i></a>
+
+                            <form action="/admin/users?_method=DELETE" method="POST" onsubmit="confirmDelete(event)">
+                                <input type="hidden" name="id" value="{{ user.id }}">
+                                {% if user.id == session.userId %}
+                                    <i class="material-icons blocked">delete</i>
+                                {% else %}
+                                    <button type="submit"><i class="material-icons">delete</i></button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </section>
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'fildsFooter.njk'%}
+{% endblock footer%}

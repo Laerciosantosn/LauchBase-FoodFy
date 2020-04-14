@@ -1,0 +1,73 @@
+#cardsChefs {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.cardChef {
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    /* padding: 16px 8px; */
+}
+
+.cardChef .cardImage{
+    width: 64px;
+    height: 64px;
+}
+.cardChef img {
+    border-radius: 50%;   
+    width: 100%;
+    height: 100%;
+    filter: brightness(50%);
+    transition: all 1.1s ease-in-out;
+    cursor: pointer;
+    object-fit: contain;
+}
+.cardChef img:hover{
+    transition:all 1.1s ease-in-out;
+    filter: brightness(100%);
+    transform: scale(1.1);  
+}
+
+.cardChef section {
+    margin-left: 15px;
+}
+.cardChef .cardTitle a p {
+    font-size: 14px;
+}
+.cardChef .cardTitle a{
+    color: #111111;
+    font-weight: bold;
+    opacity: 0.85;
+}
+.cardChef .cardAuthor {
+    margin-top: 5px;
+}
+.cardTotalRecipes {
+    margin-top: 5px;
+}
+.cardChef .cardTotalRecipes h5 {
+    font-size: 14px;
+    color: #666666;
+}
+
+
+form .item #photos-upload.chef {
+  width: 150px;
+  height: 40px;
+  background: #953930;
+  border-radius: 4px;
+}
+form .item #photos-upload.chef i{
+  color: black;
+  font-weight: bold;
+}
+
+#photos-preview.chef {
+  border: 1px solid rgba(222,222,222, 0.85);
+  margin-bottom: 10px;
+}
+/* form.deletar button[type="submit"].disabled {
+    background: #999;
+    cursor: initial;
+} */

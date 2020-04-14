@@ -2,8 +2,16 @@ const express =  require('express')
 const nunjucks = require('nunjucks')
 const routes = require('./routes')
 const methodOverride = require('method-override')
+const session = require('./config/session')
 
 const server = express()
+
+server.use(session)
+
+server.use((req, res, next) => {
+    res.locals.session = req.session
+    next()
+})
 
 // express.urlencoded RESPONSAVEL POR FAZER FUNCIONAR O REQ.BODY
 server.use(express.urlencoded({ extended: true }))

@@ -1,0 +1,23 @@
+.mainSobre {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(222,222,222, 0.15);
+  background: rgba(222,222,222, 0.15);
+}
+
+.mainSobre h3 {
+  font-size: 20px;
+  color: #111111;
+  margin-top: 30px;
+}
+
+.containerText p{
+  font-size: 18px;
+  color: #444444;
+  line-height: 28px;
+  margin-top: 20px;
+}
+
+.containerText.last p {
+  margin-bottom: 10px;
+}

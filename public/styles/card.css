@@ -1,0 +1,50 @@
+#cardsRecipes {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.cardRecipe{
+  height: 202px;
+}
+
+.cardRecipe .cardImage{
+  height: 140px;
+  border-radius: 15px;   
+  overflow: hidden;
+}
+
+.cardRecipe img {
+  width: 300px;
+  height: 140px;
+  filter: brightness(50%);
+  transition: all 100ms ease-in-out;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.cardRecipe img:hover{
+  transition:all 0.3s ease-in-out;
+  filter: brightness(100%);
+  transform: scale(1.1);  
+}
+
+.cardRecipe .cardTitle {
+  margin-top: 20px;
+}
+
+.cardRecipe .cardTitle a{
+  font-size: 18px;
+  color: #111111;
+  font-weight: bold;
+  opacity: 0.85;
+}
+
+.cardRecipe .cardAuthor {
+  margin-top: 5px;
+}
+
+.cardRecipe .cardAuthor p {
+  font-size: 14px;
+  color: #777777;
+  cursor: pointer;
+}
+

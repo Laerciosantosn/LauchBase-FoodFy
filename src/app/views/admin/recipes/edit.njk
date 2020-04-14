@@ -8,12 +8,12 @@
             <h2>Manage recipes</h2>
             <div class="divButton">
 
-                <form action="/admin/recipes?_method=DELETE" method="POST" class="deletar">
+                <form action="/admin/recipes?_method=DELETE" method="POST" class="deletar" onsubmit="confirmDelete(event)">
                     <input type="hidden" name="id" value="{{ recipe.id }}">
                     <button type="submit">Delete</button>
                 </form>
 
-                <button class="salvar" type="submit" form="post">Update recipe</button>
+                <button class="salvar" type="submit" form="post">Update</button>
 
             </div>
 
@@ -35,7 +35,7 @@
 {% endblock content %}
 
 {% block script %}
-    <script>
+    {# <script>
         const formDelete = document.querySelector(".deletar")
         formDelete.addEventListener("submit", function (event) {
             const confirmation = confirm("Deseja Deletar?")
@@ -43,6 +43,6 @@
                 event.preventDefault()
             }
         })
-    </script>
-    <script src="/scriptNewCampo.js"></script>
+    </script> #}
+    {# <script src="/scriptNewCampo.js"></script> #}
 {% endblock script %}

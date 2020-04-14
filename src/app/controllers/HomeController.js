@@ -21,7 +21,7 @@ module.exports = {
             }))
         
             const recipes = []
-            const numberMaxofCardsInHome = 3;
+            const numberMaxofCardsInHome = 6;
             for (let index = 0; index < recipesResults.length; index++) {
                 if (index < numberMaxofCardsInHome) {
                     recipes.push(recipesResults[index])
@@ -30,13 +30,6 @@ module.exports = {
         
             return res.render("home/Index", { recipes })
 
-        } catch (error) {
-            console.error(error)
-        }
-    },
-    about(req, res) {
-        try {
-            return res.render("home/About/index")
         } catch (error) {
             console.error(error)
         }
@@ -131,23 +124,6 @@ module.exports = {
             console.error(error)
         }
     },
-    // search(req, res) {
-    //     try {
-    //         const { filter } = req.query
-        
-    //         if (filter) {
-    //             Home.findRecipes(filter, function (receitas) {
-    //                 return res.render("home/Search/Index", { receitas, filter })
-    //             })
-    //         } else {
-    //             Home.all(function (receitas) {
-    //                 return res.render("home/Search/Index", { receitas, filter })
-    //             })
-    //         }
-    //     } catch (error) {
-    //         console.error(error)
-    //     }   
-    // }
 }
 
   

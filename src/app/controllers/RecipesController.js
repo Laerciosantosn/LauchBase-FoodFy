@@ -8,8 +8,25 @@ module.exports = {
     async index(req, res) {
         try {
             
+            let recipes = ""
+            
+            if (req.session.userAdmin == false) {
+                const user_id = req.session.userId
+               
+                recipes =  await Recipes.findAll({
+                    where: { user_id },
+                    
+                })
+                
+
+            }
+
+            if (req.session.userAdmin == true) {
+                recipes = await Recipes.all()
+            }
+            
         
-            let recipes = await Recipes.all()
+            
 
             const recipePromise = recipes.map(recipe => RecipeFiles.find(recipe.id))
             const result = await Promise.all(recipePromise)
@@ -41,17 +58,21 @@ module.exports = {
     async post(req, res) {
         try {
             const keys = Object.keys(req.body)
-
+            req.body.user_id = req.session.userId
+            
             for (key of keys) {
                 if (req.body[key] == '' && key != "information") {
-                    return res.send('Preenca todos os campos')
+                    return res.render('admin/recipes/create', { 
+                        user: req.body,
+                        error: 'Please fill all fields!'
+                      })
                 }
             }
 
             if (req.files.lenght == 0) {
                 return res.send('Please, send at last image!')
             }
-
+           
             let resultsRecipe = await Recipes.create(req.body)
             const recipetId = resultsRecipe.rows[0].id
 

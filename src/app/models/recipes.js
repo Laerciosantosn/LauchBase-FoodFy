@@ -56,6 +56,27 @@ module.exports = {
         }
 
     },
+    async findAll(filters) {
+        try {
+            let query = `SELECT * FROM recipes`
+
+            Object.keys(filters).map(key => {
+                // WHERE | OR | AND
+                query = `${query}
+            ${key}`
+
+                Object.keys(filters[key]).map(field => {
+                    query = `${query} ${field} = '${filters[key][field]}' ORDER BY created_at DESC`
+                })
+            })
+
+            const results = await db.query(query)
+            return results.rows
+        } catch (error) {
+            console.error(error)
+        }
+
+    },
     async find(id) {
         try {
 
@@ -75,7 +96,7 @@ module.exports = {
     },
     create(data) {
         try {
-
+           
             const query = `
                 INSERT INTO recipes (
                     chef_id,
@@ -83,7 +104,7 @@ module.exports = {
                     ingredients,
                     preparation,
                     information,
-                    created_at
+                    user_id
                 ) VALUES ($1, $2, $3, $4, $5, $6)
                 RETURNING id
             `
@@ -93,7 +114,7 @@ module.exports = {
                 data.ingredients,
                 data.preparation,
                 data.information,
-                date(Date.now()).isoBr
+                data.user_id
             ]
             return db.query(query, values)
 

@@ -1,15 +1,11 @@
 {% extends "layoutAdmin.njk" %}
+{% import "parts/SectionHeaderCreate.njk" as section %}
 
 {% block content %}
 
     <main id="main">
 
-        <section class="sectionTitle">
-            <h2>Criate an recipe/h2>
-            <div class="divButton">
-                <button class="salvar" type="submit" form="post">Save recipe</button>             
-            </div> 
-        </section>
+        {{ section.headerCreate('Criate an recipe') }}
 
         <section class="form">
 

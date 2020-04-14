@@ -1,28 +1,12 @@
 {% extends "layoutAdmin.njk" %}
-
-{# {% block head %}
-    <title>Receitas - Foodfy</title>
-{% endblock %} #}
-
-{# {% block header %}
-    <nav class="links">
-        <a href="recipes">Recipes</a>
-        <a href="chefs">Chefs</a>
-    </nav>
-{% endblock header %} #}
-
-{# {% block search %}
-{% endblock search %} #}
+{% import "parts/SectionHeaderIndex.njk" as section %}
 
 {% block content %}
 
     <main id="main" class="mainReceitasAdmin">
-        <section class="sectionTitle">
-            <h2>Manage recipes</h2>
-            <a href="/admin/recipes/create">Add recipes</a>
-        </section>
-
-        <div id="adminCardsRecipes">
+    {{ section.headerIndex('recipes', session.userAdmin) }}
+    
+        <div id="adminCardsRecipes" class="cardsAdmin">
 
             {% for recipe in recipes %}
 
@@ -50,11 +34,8 @@
 
     </main>
 
-    {# <script src="/scriptReceitaDetalhe.js"></script> #}
     <script src="/scriptDetalhe.js"></script>
     
-    {# <script src="/scripts.js"></script> #}
-
 {% endblock %}
 
 {% block footer %}

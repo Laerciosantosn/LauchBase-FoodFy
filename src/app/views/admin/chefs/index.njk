@@ -1,15 +1,14 @@
 {% extends "LayoutAdmin.njk" %}
+{% import "parts/SectionHeaderIndex.njk" as section %}
 
 {% block content %}
 
     <main id="main" class="mainReceitasAdmin">
-        <section class="sectionTitle">
-            <h2>Manage chefs</h2>
-            <a href="/admin/chefs/create">Add chefs</a>
-        </section>
 
-        <div id="cardsChefs">
-
+     {{ section.headerIndex('chefs', session.userAdmin) }}
+    
+        <div id="cardsChefs" class="cardsAdmin">
+           
             {% for chef in chefs %}
 
                 <div class="cardChef" id="{{ chef.id }}">
@@ -19,7 +18,7 @@
                     </div>
                     <section class="section">
                         <div class="cardTitle">
-                            <a href="/admin/chefs/{{ chef.id }}"><h3 class="link_title" >{{chef.name}}</h3></a>
+                            <a href="/admin/chefs/{{ chef.id }}"><p class="link_title" >{{chef.name}}</p></a>
                         </div>
                         <div class="cardVisualizar">
                             <a href="/admin/chefs/{{ chef.id }}">Visualize</a>
@@ -29,13 +28,6 @@
  
             {% endfor %}
 
-        </div>
-
-        {# pagintate #}
-        <div class="pagination"
-            data-page={{pagination.page}}
-            data-total={{pagination.total}}
-        >
         </div>
 
     </main>
