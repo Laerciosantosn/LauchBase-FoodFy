@@ -1,6 +1,5 @@
 const User = require('../models/users')
 
-
 module.exports = {
   async index(req, res) {
     const id = req.session.userId

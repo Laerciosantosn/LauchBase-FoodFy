@@ -1,8 +1,6 @@
-// const Home = require('../models/home')
 const Search = require('../models/search')
 const Recipes = require('../models/recipes')
 const RecipeFiles = require("../models/recipesFile")
-
 
 module.exports = {
   async index(req, res) {

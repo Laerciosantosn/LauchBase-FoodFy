@@ -1,6 +1,5 @@
 const Recipes = require('../models/recipes')
 const Chefs = require('../models/chefs')
-// const Home = require('../models/home')
 const RecipeFiles = require("../models/recipesFile")
 const File = require("../models/file")
 
@@ -20,13 +19,8 @@ module.exports = {
                 src: `${file.path.replace("public","")}`
             }))
         
-            const recipes = []
-            const numberMaxofCardsInHome = 6;
-            for (let index = 0; index < recipesResults.length; index++) {
-                if (index < numberMaxofCardsInHome) {
-                    recipes.push(recipesResults[index])
-                }
-            }
+            const recipes = recipesResults
+            .filter((recipes, index) => index > 2 ? false : true)
         
             return res.render("home/Index", { recipes })
 

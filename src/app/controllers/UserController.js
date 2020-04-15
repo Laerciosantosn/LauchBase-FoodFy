@@ -9,7 +9,6 @@ const RecipeFiles = require('../models/recipesFile')
 const Files = require('../models/file')
 
 module.exports = {
-
   async list(req, res) {
     const users = await User.all()
     return res.render("admin/users/index", { users } )
@@ -24,15 +23,17 @@ module.exports = {
     try {
       let data = { ...req.body }
      
-      const password = crypto.randomBytes(4).toString("hex")
+      let password = crypto.randomBytes(4).toString("hex")
       
       const passwordHash = await hash(password, 8)
       
       if(!data.is_admin) {
         data = { ...req.body, is_admin: 'false'  }
       }
-      
-      const user = await User.create(data, passwordHash)
+
+      data = { ...data, password: passwordHash}
+
+      const user = await User.create(data)
 
       await mailer.sendMail({
         to: req.body.email,
@@ -109,17 +110,23 @@ module.exports = {
   },
   async put (req, res) {
     let user = req.body
-    const { id } = req.body
+    const { id, name, email, is_admin } = req.body
     try {
               
-      let data = { ...req.body }
+      let data = { 
+        name,
+        email,
+        is_admin
+       }
     
       if(!data.is_admin) {
-        data = { ...req.body, is_admin: 'false'  }
+        data = { 
+          name,
+          email,
+          is_admin: 'false'  }
       }
-      await User.update( user.id, {
-       ...data
-      })
+      
+      await User.update( id, data)
 
        user =  await User.findOne({
         where: { id }
@@ -151,9 +158,7 @@ module.exports = {
       const recipeFilesPromise = recipes.map(recipe => RecipeFiles.all(recipe.id))
       const recipeFileResults = await Promise.all(recipeFilesPromise)
      
-      await User.delete({
-        where: { id }
-      })
+      await User.delete(id)
       
       let files = []
       await recipeFileResults.map(file => {
@@ -190,5 +195,4 @@ module.exports = {
 
 
   },
- 
 }

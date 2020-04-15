@@ -103,8 +103,7 @@ module.exports = {
   indexResetPassword(req, res) {
     return res.render("admin/session/password-reset", { token: req.query.token})
 
-  }
-  ,
+  },
   async resetPassword(req, res) {
     try { 
       const user  = req.user

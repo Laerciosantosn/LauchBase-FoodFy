@@ -1,4 +1,5 @@
 const { unlinkSync } = require('fs')
+
 const Recipes = require('../models/recipes')
 const File = require("../models/file")
 const RecipeFiles = require("../models/recipesFile")
@@ -7,26 +8,18 @@ const RecipeFiles = require("../models/recipesFile")
 module.exports = {
     async index(req, res) {
         try {
-            
             let recipes = ""
             
             if (req.session.userAdmin == false) {
                 const user_id = req.session.userId
-               
                 recipes =  await Recipes.findAll({
                     where: { user_id },
-                    
                 })
-                
-
             }
 
             if (req.session.userAdmin == true) {
                 recipes = await Recipes.all()
             }
-            
-        
-            
 
             const recipePromise = recipes.map(recipe => RecipeFiles.find(recipe.id))
             const result = await Promise.all(recipePromise)

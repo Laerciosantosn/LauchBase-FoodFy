@@ -1,4 +1,3 @@
-const Profile = require('../models/profile')
 const User = require('../models/users')
 const { compare } = require('bcryptjs')
 
@@ -15,21 +14,6 @@ function checkAllFields(body){
     }
   }
 }
-// async function show(req, res, next) {
-//   const { userId: id } = req.session
-
-//   const user = await User.findOne({
-//     where: { id } 
-//   })
-
-//   if(!user) {
-//     return res.render('admin/users/index', {
-//       error: "User not found"
-//     })
-//   }
-//   req.user = user
-//   next()
-// }
 async function put(req, res, next) {
   const fillAllFields = checkAllFields(req.body)
 
@@ -70,30 +54,6 @@ async function put(req, res, next) {
 
   next()
 }
-
-
-
-// async function post(req, res, next) {
-//   const fillAllFields = checkAllFields(req.body)
-//   if(fillAllFields) {
-//     return res.render('admin/users/create', fillAllFields)
-//   }
-//   const { email } = req.body
-
-//   const user = await User.findOne({
-//     where: { email }
-//   })
-
-//   if (user) {
-//     return res.render("admin/users/create", { 
-//       user: req.body,
-//       error: 'user aready exist'
-//     })
-//   }
-
-//   next()
-// }
-
 module.exports = {
   put
 }
