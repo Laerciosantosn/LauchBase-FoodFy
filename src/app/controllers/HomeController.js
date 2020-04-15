@@ -72,16 +72,16 @@ module.exports = {
     },
     async chefs(req, res) {
         try {
-            const chefsAll = await Chefs.all()
+            // const chefsAll = await Chefs.all()
         
-            chefsResult =  await Chefs.allchefs(chefsAll.file_id)
+           let chefs =  await Chefs.allchefs()
     
-            chefsResult = await chefsResult.map(file => ({
+           chefs = await chefs.map(file => ({
                 ... file,
                 src: `${file.path.replace("public","")}`
             }))
-
-            return res.render("home/Chefs/Index", { chefs: chefsResult })
+           
+            return res.render("home/Chefs/Index", { chefs })
 
         } catch (error) {
             console.error(error)
@@ -89,7 +89,14 @@ module.exports = {
     },
     async ShowChef(req, res) {
         try {
-            const chef =  await Chefs.find(req.params.id)
+          const { id } = req.params
+         
+            // const chef =  await Chefs.find(req.params.id)
+
+            const chef =  await Chefs.findOne({
+                where: { id }
+            })
+           
 
             let chefResult = await Chefs.findchef(chef.file_id, chef.id)
         
@@ -111,7 +118,7 @@ module.exports = {
                 ...file,
                 src: `${file.path.replace("public","")}`
             }))
-        
+            
             return res.render("home/Chefs/Show", { chef: chefResult, recipes: recipesResults })
 
         } catch (error) {

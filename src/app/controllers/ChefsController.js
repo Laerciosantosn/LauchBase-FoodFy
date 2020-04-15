@@ -27,7 +27,7 @@ module.exports = {
     },
     async post(req, res) {
         try {
-
+            const { name, id } =req.body
             if (req.body.name == "") {
                 return res.send("Please, fill all filds")
             }
@@ -35,11 +35,19 @@ module.exports = {
             if(req.file.lenght == 0) {
                 return res. send('Please, send at last image!')
             }
-
-            const resultFile = await File.create(req.file)
-            const fileId = resultFile.id
+           
+            const { filename, path } = req.file
+            const dataFile = {
+                name: filename,
+                path
+            } 
+          
+            const resultFile = await File.create(dataFile)
+            const file_id = resultFile.id
             
-            await Chefs.create({...req.body, file_id: fileId})
+            const data = { name, file_id}
+
+            await Chefs.create(data)
             
             return res.render("admin/chefs/create", {
                 success: "Account successfully created "
@@ -55,7 +63,7 @@ module.exports = {
     },
     async show(req, res) {
         try {
-            const chef =  await Chefs.find(req.params.id)
+            const chef =  await Chefs.findAnTotalRecipe(req.params.id)
        
             let chefResult = await Chefs.findchef(chef.file_id, chef.id)
         
@@ -77,7 +85,7 @@ module.exports = {
                 ...file,
                 src: `${file.path.replace("public","")}`
             }))
-
+           
             return res.render("admin/chefs/show", { chef : chefResult, recipes: recipesResults})
 
         } catch (error) {
@@ -86,11 +94,11 @@ module.exports = {
     },
     async edit(req, res) {
         try {
-        const chef = await Chefs.find(req.params.id)
+        const chef = await Chefs.findAnTotalRecipe(req.params.id)
 
         if (!chef) return res.send("Chef not found!")
                  
-        const fileResults = await Chefs.file(chef.file_id)
+        const fileResults = await File.find(chef.file_id)
 
         let file =  [fileResults]
         
@@ -106,7 +114,7 @@ module.exports = {
         }
     },
     async put(req, res) {
-   
+        const { name, id } =req.body
         const keys = Object.keys(req.body)
 
         for(key of keys){
@@ -116,13 +124,19 @@ module.exports = {
         }
 
         let file_id = req.body.file_id
-
+        
+       
         if (req.files.length != 0) {
-            const file = await File.create(req.files[0])
+            const { filename, path } = req.files[0]
+            const dataFile = {
+                name: filename,
+                path
+            } 
+            const file = await File.create(dataFile)
             file_id = file.id
         }
-
-        await Chefs.update(req.body.name, file_id, req.body.id)
+        const data = { name, file_id}
+        await Chefs.update(id, data)
 
         if (req.body.removed_files) {
 
@@ -131,18 +145,22 @@ module.exports = {
             removedFiles.splice(lastIndex, 1)
           
 
-            const filePromise = removedFiles.map(id => File.all(id))
+            const filePromise = removedFiles.map(id => File.findOne(
+                {
+                    where: { id }
+                }
+            ))
             const file = await Promise.all(filePromise)
 
-            fileRemove = file
+            let fileRemove = file
 
-                fileRemove.map(file => {
-                    try {
-                        unlinkSync(file.path)
-                    } catch (err) {
-                        console.error(err)
-                    }
-                })
+            fileRemove.map(file => {
+                try {
+                    unlinkSync(file.path)
+                } catch (err) {
+                    console.error(err)
+                }
+            })
 
             const removedFilesPromise = removedFiles.map(id => File.delete(id))
             await Promise.all(removedFilesPromise)
@@ -152,11 +170,17 @@ module.exports = {
     },
     async delete(req, res) {
         try {
-            const chef = await Chefs.find(req.body.id)
-
-            const file = await File.find(chef.file_id)
-
-            if(chef.total_recipes == 0){
+            const chef = await Chefs.findAnTotalRecipe(req.body.id)
+            
+            const id =  chef.file_id
+            
+            let file =  await File.findOne({
+                where: { id }
+            })
+            
+            // const file = await File.find(chef.file_id)
+            // console.log(chef)
+            // if(chef.total_recipes == 0){
 
                 await Chefs.delete(req.body.id)
 
@@ -172,9 +196,9 @@ module.exports = {
                 await File.delete(file.id)
 
                 return res.redirect(`chefs`)
-            } else {
-                return res.send("Chefs que possuem receitas não podem ser deletados")
-            }
+            // } else {
+            //     return res.send("Chefs que possuem receitas não podem ser deletados")
+            // }
 
         } catch (error) {
             console.error(error)

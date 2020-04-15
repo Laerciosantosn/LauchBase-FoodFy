@@ -1,23 +1,28 @@
 const db = require('../../config/db')
 const { date } = require('../../lib/utils')
 
+const Base = require('./base')
+
+Base.init({ table: 'chefs' })
+
 module.exports = {
-    async all() {
-        try {
-            const query = `
-                SELECT chefs.*, count(recipes) AS total_recipes
-                FROM chefs
-                LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
-                GROUP BY chefs.id
-            ` 
-            const results = await db.query(query)
+    ...Base,
+    // async all() {
+    //     try {
+    //         const query = `
+    //             SELECT chefs.*, count(recipes) AS total_recipes
+    //             FROM chefs
+    //             LEFT JOIN recipes ON (chefs.id = recipes.chef_id)
+    //             GROUP BY chefs.id
+    //         ` 
+    //         const results = await db.query(query)
 
-            return results.rows
+    //         return results.rows
 
-        } catch (error) {
-            console.error(error)
-        }
-    },
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // },
     async allchefs(){
         try {
             const query = `
@@ -37,7 +42,9 @@ module.exports = {
     async findchef(file_id, id){
         try {
         
-            let results = await db.query(`SELECT *, (SELECT path FROM files WHERE id = $1) AS path FROM chefs WHERE id = $2`, [file_id, id])
+            let results = await db.query(`SELECT *, 
+                (SELECT path FROM files WHERE id = $1) AS path FROM chefs WHERE id = $2`, 
+                [file_id, id])
         
             return results.rows[0]
 
@@ -45,28 +52,28 @@ module.exports = {
             console.error(error)
         }
      },
-    create(data) {
-        try {
-            const query = `
-                INSERT INTO chefs (
-                    name,
-                    file_id,
-                    created_at
-                ) VALUES ($1, $2, $3)
-                RETURNING id
-            `
-            const values = [
-                data.name,
-                data.file_id,
-                date(Date.now()).isoBr        
-            ] 
+    // create(data) {
+    //     try {
+    //         const query = `
+    //             INSERT INTO chefs (
+    //                 name,
+    //                 file_id,
+    //                 created_at
+    //             ) VALUES ($1, $2, $3)
+    //             RETURNING id
+    //         `
+    //         const values = [
+    //             data.name,
+    //             data.file_id,
+    //             date(Date.now()).isoBr        
+    //         ] 
             
-            return db.query(query, values)
-        } catch (error) {
-            console.error(error)
-        }
-    },
-    async find(id){
+    //         return db.query(query, values)
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // },
+    async findAnTotalRecipe(id){
         try {
             const query = `
                 SELECT chefs.*, count(recipes) AS total_recipes 
@@ -84,33 +91,33 @@ module.exports = {
             console.error(error)
         }
     },
-    update(name, file_id, id){
-        try {
-        const query = `
-            UPDATE chefs SET
-                name=($1),
-                file_id=($2)
-            WHERE id = $3
-        `
-        const values = [
-            name,
-            file_id,
-            id
-        ]
-        return db.query(query, values)
+    // update(name, file_id, id){
+    //     try {
+    //     const query = `
+    //         UPDATE chefs SET
+    //             name=($1),
+    //             file_id=($2)
+    //         WHERE id = $3
+    //     `
+    //     const values = [
+    //         name,
+    //         file_id,
+    //         id
+    //     ]
+    //     return db.query(query, values)
 
-        } catch (error) {
-            console.error(error)
-        }
-    },
-    delete(id, callback){
-        try {
-        return db.query(`DELETE FROM chefs WHERE id = $1`, [id])
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // },
+    // delete(id, callback){
+    //     try {
+    //     return db.query(`DELETE FROM chefs WHERE id = $1`, [id])
 
-        } catch (error) {
-            console.error(error)
-        }
-    },
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // },
     async recipesChef({id}){
         try {
             const query = `SELECT chefs.*, recipes.image, recipes.title, recipes.id
@@ -127,13 +134,12 @@ module.exports = {
             console.error(error)
         }
     },
-    async file(id) {
-        try {
-            const results = await db.query(`SELECT * FROM files WHERE id = $1`, [id])
-        
-            return results.rows[0]
-        } catch (error) {
-            console.error(error)
-        }
-    }
+    // async file(id) {
+    //     try {
+    //         const results = await db.query(`SELECT * FROM files WHERE id = $1`, [id])  
+    //         return results.rows[0]
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
 } 
