@@ -3,14 +3,16 @@ const db = require('../../config/db')
 function find(filters, table) {
   let query = `SELECT * FROM ${table}`
 
-  Object.keys(filters).map(key => {
-    // WHERE | OR | AND
-    query += ` ${key}` // removendo a ${query} e dando um spaço antes da ${key} estara simplificando a query
-    
-    Object.keys(filters[key]).map(field => {
-      query += ` ${field} = '${filters[key][field]}'`
+  if(filters){
+    Object.keys(filters).map(key => {
+      // WHERE | OR | AND
+      query += ` ${key}` // removendo a ${query} e dando um spaço antes da ${key} estara simplificando a query
+      
+      Object.keys(filters[key]).map(field => {
+        query += ` ${field} = '${filters[key][field]}'`
+      })
     })
-  })
+  }
   // console.log(query)
   return db.query(query)
 }
@@ -29,18 +31,7 @@ const Base = {
   },
   async findOne(filters) {
     try {
-      //   let query = `SELECT * FROM ${this.table}`
-
-      // Object.keys(filters).map(key => {
-      //   // WHERE | OR | AND
-      //   query = `${query}
-      //   ${key}`
-
-      //   Object.keys(filters[key]).map(field => {
-      //     query = `${query} ${field} = '${filters[key][field]}'`
-      //   })
-      // })
-// console.log(filters, this.table)
+     // console.log(filters, this.table)
       const results = await find(filters, this.table)
       return results.rows[0]
 
@@ -50,7 +41,7 @@ const Base = {
     
   },
   async findAll(filters) {
-    
+    // console.log(filters, this.table)
     const results = await find(filters, this.table)
     
     return results.rows
@@ -81,7 +72,7 @@ const Base = {
   async update(id, fields) {
     try {
       let update = []
-
+      console.log(fields)
       Object.keys(fields).map(key => {
            
         const line = `${key} = '${fields[key]}'` 
@@ -93,7 +84,7 @@ const Base = {
       let query = `UPDATE ${this.table} SET
       ${update.join(',')} WHERE id = ${id}
       `
-    
+    console.log(query)
       await db.query(query)
       return
 

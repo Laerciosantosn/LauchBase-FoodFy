@@ -6,7 +6,7 @@ Base.init({ table: 'files' })
 
 module.exports = {
     ...Base,
-    // async create({filename, path}) {
+    // async created({filename, path}) {
         
     //     try {
     //         const query = `
@@ -20,7 +20,7 @@ module.exports = {
     //             filename,
     //             path
     //         ]
-       
+    //         console.log(query, " " , values)
     //         const results = await db.query(query, values)
           
     //         return results.rows[0]

@@ -1,6 +1,63 @@
 const Chefs = require('../models/chefs')
 const File = require('../models/file')
 
+function checkAllFields(body){
+  const keys = Object.keys(body)
+
+  for(key of keys) {
+    if (body[key] == "") {
+      return {
+        user: body,
+        error: 'Please fill all fields!'
+      }
+    }
+  }
+}
+
+async function post(req, res, next) {
+  const fillAllFields = checkAllFields(req.body)
+  
+  if(fillAllFields) {
+    
+    return res.render('admin/chefs/create', { 
+    error: "Please fill all fields!"})
+  }
+
+  if (!req.file) {
+ 
+    return res.render('admin/chefs/create', { 
+      error: "Please, send at last image!"})
+  }
+  
+  next()
+
+}
+
+// async function put(req, res, next) {
+//   const fillAllFields = checkAllFields(req.body)
+// const keys = Object.keys(req.body)
+
+// for(key of keys){
+//     if(req.body[key] == '' && key != 'removed_files'){
+//         return res.send('Fill all fields')
+//     }
+// }
+//   if(fillAllFields) {
+    
+//     return res.render('admin/chefs/create', { 
+//     error: "Please fill all fields!"})
+//   }
+
+//   if (!req.file) {
+ 
+//     return res.render('admin/chefs/create', { 
+//       error: "Please, send at last image!"})
+//   }
+  
+//   next()
+
+// }
+
 async function chefDelete(req, res, next) {
   const { total_recipes }= req.body
 
@@ -33,5 +90,7 @@ async function chefDelete(req, res, next) {
 }
 
 module.exports = {
+  post,
+  // put,
   chefDelete
 }

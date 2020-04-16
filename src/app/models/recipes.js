@@ -1,7 +1,12 @@
 const { date } = require('../../lib/utils')
 const db = require('../../config/db')
 
+const Base = require('./base')
+
+Base.init({ table: 'recipes' })
+
 module.exports = {
+    ...Base,
     async all() {
         try {
             const query = `
@@ -56,45 +61,45 @@ module.exports = {
         }
 
     },
-    async findAll(filters) {
-        try {
-            let query = `SELECT * FROM recipes`
+    // async findAll(filters) {
+    //     try {
+    //         let query = `SELECT * FROM recipes`
 
-            Object.keys(filters).map(key => {
-                // WHERE | OR | AND
-                query = `${query}
-            ${key}`
+    //         Object.keys(filters).map(key => {
+    //             // WHERE | OR | AND
+    //             query = `${query}
+    //         ${key}`
 
-                Object.keys(filters[key]).map(field => {
-                    query = `${query} ${field} = '${filters[key][field]}' ORDER BY created_at DESC`
-                })
-            })
+    //             Object.keys(filters[key]).map(field => {
+    //                 query = `${query} ${field} = '${filters[key][field]}' ORDER BY created_at DESC`
+    //             })
+    //         })
 
-            const results = await db.query(query)
-            return results.rows
-        } catch (error) {
-            console.error(error)
-        }
+    //         const results = await db.query(query)
+    //         return results.rows
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
 
-    },
-    async find(id) {
-        try {
+    // },
+    // async find(id) {
+    //     try {
 
-            const query = `
-                SELECT recipes.*, chefs.name AS chef 
-                FROM recipes 
-                LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-                WHERE recipes.id = $1
-            `
-            const values = [id]
-            const results = await db.query(query, values)
-            return results.rows[0]
-        } catch (error) {
-            console.error(error)
-        }
+    //         const query = `
+    //             SELECT recipes.*, chefs.name AS chef 
+    //             FROM recipes 
+    //             LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
+    //             WHERE recipes.id = $1
+    //         `
+    //         const values = [id]
+    //         const results = await db.query(query, values)
+    //         return results.rows[0]
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
 
-    },
-    create(data) {
+    // },
+    createWithArray(data) {
         try {
            
             const query = `
@@ -109,20 +114,21 @@ module.exports = {
                 RETURNING id
             `
             const values = [
-                data.chef,
+                data.chef_id,
                 data.title,
                 data.ingredients,
                 data.preparation,
                 data.information,
                 data.user_id
             ]
+            console.log(`${query}, ${values} `)
             return db.query(query, values)
 
         } catch (error) {
             console.error(error)
         }
     },
-    update(data) {
+    updateWhitArray(data) {
         try {
 
             const query = `
@@ -148,16 +154,16 @@ module.exports = {
             console.error(error)
         }
     },
-    delete(id) {
-        try {
+    // delete(id) {
+    //     try {
 
-            db.query(`DELETE FROM recipes WHERE id = $1`, [id])
+    //         db.query(`DELETE FROM recipes WHERE id = $1`, [id])
 
-        } catch (error) {
-            console.error(error)
-        }
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
 
-    },
+    // },
     async chefSelectOptions() {
         try {
 

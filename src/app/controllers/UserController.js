@@ -10,7 +10,7 @@ const Files = require('../models/file')
 
 module.exports = {
   async list(req, res) {
-    const users = await User.all()
+    const users = await User.findAll()
     return res.render("admin/users/index", { users } )
   },
   async show(req, res) {
@@ -179,7 +179,7 @@ module.exports = {
       filesPromise = fileResults.map(file => Files.delete(file.id))
       await Promise.all(filesPromise)
 
-      const users = await User.all()
+      const users = await User.findAll()
 
       return res.render("admin/users/index", { 
         users, 

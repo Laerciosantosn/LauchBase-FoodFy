@@ -21,7 +21,7 @@
     filter: brightness(50%);
     transition: all 1.1s ease-in-out;
     cursor: pointer;
-    object-fit: contain;
+    object-fit: cover;
 }
 .cardChef img:hover{
     transition:all 1.1s ease-in-out;

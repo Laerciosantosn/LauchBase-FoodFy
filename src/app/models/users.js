@@ -6,14 +6,14 @@ Base.init({ table: 'users' })
 
 module.exports = {
   ...Base,
-  async all(){
-    try {
-     const results = await db.query(`SELECT * FROM ${this.table}`)
-     return  results.rows 
-    } catch (error) {
-      console.error(error)
-    }
-  },
+  // async all(){
+  //   try {
+  //    const results = await db.query(`SELECT * FROM ${this.table}`)
+  //    return  results.rows 
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // },
   // async findOne(filters) {
   //   try {
   //       let query = `SELECT * FROM users`

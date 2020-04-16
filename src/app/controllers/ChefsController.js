@@ -27,27 +27,33 @@ module.exports = {
     },
     async post(req, res) {
         try {
-            const { name, id } =req.body
-            if (req.body.name == "") {
-                return res.send("Please, fill all filds")
-            }
+            const { name } =req.body
+            // if (req.body.name == "") {
+            //     return res.send("Please, fill all filds")
+            // }
         
-            if(req.file.lenght == 0) {
-                return res. send('Please, send at last image!')
-            }
+            // if(req.file.lenght == 0) {
+            //     return res. send('Please, send at last image!')
+            // }
            
-            const { filename, path } = req.file
-            const dataFile = {
-                name: filename,
-                path
-            } 
+            // const { filename, path } = req.file
+            // const dataFile = {
+            //     name: filename,
+            //     path
+            // } 
           
-            const resultFile = await File.create(dataFile)
+            const resultFile = await File.create({
+                name: req.file.filename, 
+                path: req.file.path})
+            // const resultFile = await File.create(dataFile)
             const file_id = resultFile.id
             
-            const data = { name, file_id}
+            // const data = { name, file_id}
 
-            await Chefs.create(data)
+            await Chefs.create({
+                name,
+                file_id
+            })
             
             return res.render("admin/chefs/create", {
                 success: "Account successfully created "
@@ -74,8 +80,12 @@ module.exports = {
             }
             
             let recipesResults = await Recipes.recipesChef(chefResult.id)
-        
-            const recipePromise = recipesResults.map( recipe => RecipeFiles.recipeChef(recipe.id))
+            // console.log(recipesResults)
+            
+            const recipePromise = recipesResults.map( recipe => RecipeFiles.findOne({
+                where:{ recipe_id: recipe.id }
+            }))
+            // const recipePromise = recipesResults.map( recipe => RecipeFiles.recipeChef(recipe.id))
             const Result =  await Promise.all(recipePromise)
         
             const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
@@ -114,7 +124,9 @@ module.exports = {
         }
     },
     async put(req, res) {
-        const { name, id } =req.body
+        const { filename, path } = req.files[0]
+        let { name, id, file_id } =req.body
+
         const keys = Object.keys(req.body)
 
         for(key of keys){
@@ -123,16 +135,18 @@ module.exports = {
             }
         }
 
-        let file_id = req.body.file_id
+        // let file_id = req.body.file_id
         
-       
         if (req.files.length != 0) {
-            const { filename, path } = req.files[0]
-            const dataFile = {
-                name: filename,
+            
+            // const dataFile = {
+            //     name: filename,
+            //     path
+            // } 
+            const file = await File.create({
+                name : filename,
                 path
-            } 
-            const file = await File.create(dataFile)
+            })
             file_id = file.id
         }
         const data = { name, file_id}
@@ -144,7 +158,6 @@ module.exports = {
             const lastIndex = removedFiles.length - 1
             removedFiles.splice(lastIndex, 1)
           
-
             const filePromise = removedFiles.map(id => File.findOne(
                 {
                     where: { id }

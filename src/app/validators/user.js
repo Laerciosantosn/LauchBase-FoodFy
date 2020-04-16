@@ -81,7 +81,7 @@ async function userDelete(req, res, next) {
   const { userId } = req.session
   const { id } = req.body
 
-  const users = await User.all()
+  const users = await User.findAll()
  
   if( userId == id) {
     return res.render('admin/users/index', {

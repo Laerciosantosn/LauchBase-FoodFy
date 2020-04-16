@@ -12,7 +12,7 @@ routes.get('/create', onlyUsers, onlyAdmin, ChefsController.create)
 routes.get('/:id', onlyUsers, ChefsController.show)
 routes.get('/:id/edit', onlyUsers, onlyAdmin, ChefsController.edit)
 
-routes.post('/', multer.single('photo'), onlyUsers, onlyAdmin, ChefsController.post)
+routes.post('/', multer.single('photo'), onlyUsers, onlyAdmin, chefValidator.post, ChefsController.post)
 routes.put('/', multer.array("photo", 1), onlyUsers, onlyAdmin, ChefsController.put)
 routes.delete('/', onlyUsers, onlyAdmin, chefValidator.chefDelete, ChefsController.delete)
 
