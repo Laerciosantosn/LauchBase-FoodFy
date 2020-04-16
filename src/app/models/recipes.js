@@ -130,7 +130,7 @@ module.exports = {
     },
     updateWhitArray(data) {
         try {
-
+           
             const query = `
                 UPDATE recipes SET
                     chef_id=($1),
@@ -141,7 +141,7 @@ module.exports = {
                 WHERE id = $6
             `
             const values = [
-                data.chef,
+                data.chef_id,
                 data.title,
                 data.ingredients,
                 data.preparation,

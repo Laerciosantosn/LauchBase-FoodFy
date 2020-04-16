@@ -47,7 +47,7 @@ module.exports = {
         try {
             const chefOptions = await Recipes.chefSelectOptions()
 
-            return res.render("admin/recipes/create", { chefOptions })
+            return res.render("admin/recipes/create", { chefOptions } )
 
          } catch (error) {
             console.error(error)
@@ -93,7 +93,10 @@ module.exports = {
 
            const chefOptions = await Recipes.chefSelectOptions()
 
-            return res.render("admin/recipes/create", { chefOptions })
+            return res.render("admin/recipes/create", { 
+                chefOptions,
+                success: "Recipes successfully created "
+            })
             // return res.redirect(`recipes`)
         } catch (err) {
             console.error(err)
@@ -227,7 +230,7 @@ module.exports = {
                 await Promise.all(removedFilesPromise)
             }
 
-            // console.log(req.body)
+            console.log(req.body)
 
             await Recipes.updateWhitArray(req.body)
 

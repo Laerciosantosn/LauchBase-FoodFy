@@ -22,7 +22,7 @@ module.exports = {
             }))
         
             const recipes = recipesResults
-            .filter((recipes, index) => index > 2 ? false : true)
+            .filter((recipes, index) => index > 5 ? false : true)
         
             return res.render("home/Index", { recipes })
 
