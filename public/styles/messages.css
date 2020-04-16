@@ -1,6 +1,5 @@
 @keyframes hidemessage {
    to {
-    /* top: -50px; */
     opacity: 0;
   }
 }

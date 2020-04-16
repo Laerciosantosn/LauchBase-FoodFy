@@ -3,8 +3,8 @@
   margin-top: 36px;
   padding: 16px 8px;
 
-    border: 1px solid rgba(222,222,222, 0.15);
-    background: rgba(222,222,222, 0.15);
+  border: 1px solid rgba(222,222,222, 0.15);
+  background: rgba(222,222,222, 0.15);
 }
 
 #cardUser{
@@ -18,32 +18,40 @@
   font-size: 18px;
   color: #111111;
 }
+
 #cardUser .cardEmail {
   font-size: 14px;
   color: #777777;
   margin-top: 4px;
   margin-bottom: 16px;
 }
+
 #cardUser .cardSetting {
   display: flex;
   justify-content: space-between;
 }
+
 #cardUser .cardSetting i {
   font-size: 18px;
 }
+
 #cardUser .cardSetting a{
   color: #6558C3;
 }
+
 #cardUser .cardSetting form i {
   color: #F55A5A;
 }
+
 #cardUser .cardSetting form i.blocked {
   color: #777777;
 }
+
 .cardSetting form button[type="submit"] {
   height: 18px;
   background: none;
 }
+
 #cardUser section.section {
     border-radius: 4px;
     padding: 8px;
@@ -52,21 +60,23 @@
 }
 
 /* User Form */
-
 .item .user:first-child {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 20px;
 }
+
 .item .user p {
   width: 400px;
 }
+
 .item .user input,
 .item input.password {
   padding: 15px 20px;
   width: 450px;
   height: 49px;
 }
+
 .item .user input[type="checkbox"] {
   margin-top: 30px;
   width: 15px;
@@ -75,6 +85,7 @@
   border: unset;
   border: 1px solid #DDDDDD;
 }
+
 .item .user:last-child {
   display: flex;
   align-items: center;

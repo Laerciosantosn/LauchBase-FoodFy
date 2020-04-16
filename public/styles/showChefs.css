@@ -4,20 +4,24 @@
   display: flex;
   justify-content: center;
 }
+
 .bannerCardChefImage img {
   width: 200px;
   height: 200px;
   border-radius: 50%;
   object-fit: cover;
 }
+
 .bannerCardChefTitle {
   margin-top: 30px;
   text-align: center;
 }
+
 .bannerCardChefTitle h1 {
   font-size: 36px;
   color: #111111;
 }
+
 .bannerCardChefTitle p {
   font-size: 20px;
   color: #777777;

@@ -4,6 +4,7 @@ form .item #photos-upload.chef {
   background: #953930;
   border-radius: 4px;
 }
+
 form .item #photos-upload.chef i{
   color: black;
   font-weight: bold;
@@ -13,12 +14,3 @@ form .item #photos-upload.chef i{
   border: 1px solid rgba(222,222,222, 0.85);
   margin-bottom: 10px;
 }
-
-/* #photos-preview.chef .photo a {
-  font-size: 10px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-

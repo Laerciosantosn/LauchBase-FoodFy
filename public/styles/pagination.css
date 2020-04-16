@@ -10,6 +10,7 @@
   justify-content: center;
   border-radius: 8px;
 }
+
 .pagination a,
 .pagination span {
   color:#000;
@@ -24,7 +25,6 @@
   background: #953930;
   border-radius: 4px;
   box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, 0.3);
-
 }
 
 .pagination a:hover {

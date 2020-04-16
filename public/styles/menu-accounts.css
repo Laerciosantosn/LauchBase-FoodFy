@@ -1,61 +1,6 @@
-/* .accounts  {
-  position: relative;
-}
-.accounts .submenu {
-  position: absolute;
-  top: 32px;
-  right: 0;
-
-  margin-top: 8px;
-
-  width: 150px;
-
-  display: block;
-  background: #fff;
-
-  border-radius: 4px;
-  box-shadow: 0px 2px 4px -2px rgba(0, 0, 0, 0.3);
-
-  transition: all 200ms;
-  opacity: 0;
-  visibility: hidden;
-}
-.accounts .submenu li a,
-.accounts .submenu li button {
-  color: #777;
-  padding: 8px 16px;
-  cursor: pointer;
-
-  font-size: 14px;
-
-  border-radius: 4px;
-  border-top:  1px solid #eee;
-
-  display:  inline-block;
-  width: 100%;
-
- 
-}
-.accounts .submenu li:first-child a {
-  border: none;
-}
-.accounts .submenu li a:hover,
-.accounts .submenu li button:hover {
-  font-weight: bold;
-}
-
-.accounts:hover .submenu {
-  top: 0;
-  opacity: 1;
-  visibility: initial;
-} */
-
-/* === Menu do youtube === */
-
 .accounts  {
   position: relative;
 }
-
 
 .menu {
   top: 42px;
@@ -69,15 +14,18 @@
   visibility: hidden;
   z-index: 10;
 }
+
 .menu .item a,
 .menu .item p:first-child {
   color: #000e;
   font-weight: bold;
 }
+
 .menu .item p:first-child {
   text-align: center;
   
 }
+
 .menu .item p:last-child {
   /* color: #4b4a4a; */
   font-size: 12px;
@@ -88,10 +36,11 @@
   opacity: 1;
   visibility: initial;
 }
+
 .menu .item {
   border-top: 1px solid var(--secondary-color);
-  /* overflow: hidden; */
 }
+
 .btn {
   display: block;
   padding: 8px 20px;
@@ -100,47 +49,7 @@
   position: relative;
   font-size: 14px;
 }
-/* .btn::before {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  background:  var(--primary-color);
-  left: 20px;
-  bottom:  -7px;
-  transform: rotate(45deg);
-} */
-/* .submenu {
-  background: #333;
-  overflow: hidden;
-  transition: max-height 300ms;
-  max-height: 0;
-} */
-/* .item .submenu a {
-  display: block;
-  padding: 8px 26px;
-  color: var(--primary-color);
-  font-size: 14px;
-  margin: 4px 0;
-  position: relative;
-} */
-/* .submenu a::before {
-  content: "";
-  position: absolute;
-  width: 6px;
-  height: 100%;
-  background: var(--primary-color);
-  left: 0;
-  top: 0;
-  transition: 300ms;
-  opacity: 0;
-}
-.submenu a:hover::before {
-  opacity: 1;
-}
-.item:target .submenu {
-  max-height: 10em;
-} */
+
 #header .menu .item form button {
   width:100%;
   border-top-left-radius: 0;

@@ -3,25 +3,31 @@
   height: 400px;
   text-align:  center;
 }
+
 .bannerCardRecipeImage {
   height: 280px;
 }
+
 .bannerCardRecipeImage img {
   border-radius: 15px;
   width: 100%;
   height: 280px;
   object-fit: cover;
 }
+
 .bannerCardRecipeTitle {
   margin-top: 8px;
 }
+
 .bannerCardRecipeTitle h1 {
   font-size: 36px;
   color: #111111;
 }
+
 .bannerCardRecipeAuthor {
   margin-top: 4px;
 }
+
 .bannerCardRecipeAuthor p {
   font-size: 20px;
   color: #777777;
@@ -31,11 +37,13 @@
 .mainAdminDetalhe .title h3{
   margin-top: 50px;
 }
+
 .mainReceitaDetalhe h3,
 .mainAdminDetalhe h3  {
   font-size: 24px;
   color: #111111;
 }
+
 .mainReceitaDetalhe span,
 .mainAdminDetalhe span {
   font-size: 12px;
@@ -44,11 +52,13 @@
   margin-left: 8px; 
   cursor: pointer;  
 }
+
 .mainReceitaDetalhe ul,
 .mainAdminDetalhe ul{
   margin-top: 20px;
   display: none;
 }
+
 .mainReceitaDetalhe ul li,
 .mainAdminDetalhe ul li {
   font-size: 18px;
@@ -56,9 +66,11 @@
   line-height: 28px;
   text-align: justify;
 }
+
 .mainReceitaDetalhe ul.visible{
   display: block;
 }
+
 .informacoesAdicionais {
   margin-bottom: 50px;
 }
@@ -82,6 +94,7 @@
   cursor: pointer;
   transition: 400ms;
 }
+
 .gallery-preview img:hover,
 .gallery-preview img.active {
   opacity: 1;

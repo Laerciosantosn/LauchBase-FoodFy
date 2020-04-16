@@ -20,7 +20,6 @@ body {
   display: grid;
   grid-template-rows: 93px 1fr 62px;
   min-height: 100vh;
-  /* flex-direction: column; */
 }
 
 #cardsRecipes, 
@@ -32,17 +31,18 @@ body {
 }
 
 /* === HEADER === */
-
 #header {
   height: 93px;
   background: #111;
   position: relative;
 }
+
 #header section,
 main {
   width: 940px; 
   margin: 0 auto;
 }
+
 main {
   margin-top: 30px;
 }
@@ -54,12 +54,15 @@ main {
   grid-gap: 10px;
   align-items: center;
 }
+
 nav {
   margin-left: 122.4px;   
 }
+
 nav a{
   text-transform: uppercase;   
 }
+
 nav a + a {
   margin-left: 30px;
 }
@@ -70,21 +73,25 @@ nav a + a {
   align-items: center;
   justify-content: space-between;
 }
+
 #header.admin section .searchButon{
   justify-content: flex-end;
 }
+
 #header section .button {
   justify-self: end;
 }
+
 #header section nav a {
- 
   color: var(--primary-color);
   position: relative;
   font-weight: bold;
 }
+
 #header section a.active {
   color:greenyellow; 
 }
+
 #header section nav a::after{
   content: "";
   width: 0;
@@ -94,21 +101,25 @@ nav a + a {
   left: 0;
   bottom: -6px;
 }
+
 #header section nav a:hover::after,
 #header section nav a:hover{
   width: 100%;
   transition: width 200ms ease-in-out ;
   color: var(--secondary-color);
 }
+
 #header form {
   display: flex;
   justify-self: end;
 }
+
 #header form input,
 #header form button {
   border-radius: 4px;
   font-size: 16px;
 }
+
 #header form input{
   width: 246px;
   height: 37px;
@@ -119,6 +130,7 @@ nav a + a {
   outline: none;
   padding-left: 16px;
 }
+
 #header form button{
   width: 91px;
   height: 37px;
@@ -127,18 +139,21 @@ nav a + a {
   background: var(--primary-color);
   cursor: pointer;
 }
+
 #header form button:hover {
   background: var(--secondary-color);
 }
+
 .headerLogin .signin {
   color:var(--primary-color);
   padding: 10px;
 }
+
 .headerLogin #menu {
   color:var(--primary-color);
   font-size: 37px;
- 
 }
+
 .headerLogin a:hover {
   color: var(--secondary-color)
 }
