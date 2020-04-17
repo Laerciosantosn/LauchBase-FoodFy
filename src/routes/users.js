@@ -1,12 +1,10 @@
 const express = require('express')
 const routes = express.Router()
 
-// const SessionController = require('../app/controllers/SessionController')
 const UserController = require('../app/controllers/UserController')
 const userValidator = require('../app/validators/user')
 const { onlyUsers, onlyAdmin } = require('../app/middlewares/session')
 
-// user register UserController
 routes.get('/', onlyUsers, onlyAdmin, UserController.list) 
 routes.get('/create', onlyUsers, onlyAdmin, UserController.create) 
 routes.get('/:id', onlyUsers, onlyAdmin, UserController.show) 

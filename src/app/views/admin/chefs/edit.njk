@@ -5,26 +5,18 @@
     <main id="main">
     
         <section class="sectionTitle">
+
             <h2>Manage chefs</h2>
-            {# {% if chef.total_recipes >= 1 %}
-                <p class="message"></p>
-            {% endif %} #}
 
             <div class="divButton">
                 <form action="/admin/chefs?_method=DELETE" method="POST" class="deletar" onsubmit="confirmDelete(event)">
                     <input type="hidden" name="id" value="{{ chef.id }}">
                     <input type="hidden" name="total_recipes" value="{{ chef.total_recipes }}">
-                    {# {% if chef.total_recipes == 0 %} #}
-                        <button type="submit" >Delete</button>
-
-                    {# {% else %}
-                        <button type="submit" class="disabled" >Delete</button>
-
-                    {% endif %} #}
+                    <button type="submit" >Delete</button>
                 </form>
-
                 <button class="salvar" type="submit" form="post">Update</button>
             </div>
+
         </section>
 
         <section class="form">
@@ -42,20 +34,3 @@
     </main>
 
 {% endblock content %}
-
-{# {% block script %}
-    <script>
-        const formDelete = document.querySelector(".deletar")
-        formDelete.addEventListener("submit", function (event) {
-            const confirmation = confirm("Deseja Deletar?")
-            if (!confirmation) {
-                event.preventDefault()
-            }
-        })
-        const disabled = document.querySelector(".disabled")
-        disabled.addEventListener("click", function(){
-            this.disabled=true
-            const message = document.querySelector(".message").innerHTML="Chefs que possuem receitas não podem ser deletados"
-        })
-    </script>
-{% endblock script %} #}

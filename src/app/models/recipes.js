@@ -1,4 +1,3 @@
-const { date } = require('../../lib/utils')
 const db = require('../../config/db')
 
 const Base = require('./base')
@@ -25,7 +24,6 @@ module.exports = {
     },
     async recipesChef(id) {
         try {
-
             const query = `
                 SELECT recipes.*, chefs.name AS chef 
                 FROM recipes 
@@ -61,47 +59,8 @@ module.exports = {
         }
 
     },
-    // async findAll(filters) {
-    //     try {
-    //         let query = `SELECT * FROM recipes`
-
-    //         Object.keys(filters).map(key => {
-    //             // WHERE | OR | AND
-    //             query = `${query}
-    //         ${key}`
-
-    //             Object.keys(filters[key]).map(field => {
-    //                 query = `${query} ${field} = '${filters[key][field]}' ORDER BY created_at DESC`
-    //             })
-    //         })
-
-    //         const results = await db.query(query)
-    //         return results.rows
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-
-    // },
-    // async find(id) {
-    //     try {
-
-    //         const query = `
-    //             SELECT recipes.*, chefs.name AS chef 
-    //             FROM recipes 
-    //             LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-    //             WHERE recipes.id = $1
-    //         `
-    //         const values = [id]
-    //         const results = await db.query(query, values)
-    //         return results.rows[0]
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-
-    // },
     createWithArray(data) {
         try {
-           
             const query = `
                 INSERT INTO recipes (
                     chef_id,
@@ -121,7 +80,6 @@ module.exports = {
                 data.information,
                 data.user_id
             ]
-            console.log(`${query}, ${values} `)
             return db.query(query, values)
 
         } catch (error) {
@@ -130,7 +88,6 @@ module.exports = {
     },
     updateWhitArray(data) {
         try {
-           
             const query = `
                 UPDATE recipes SET
                     chef_id=($1),
@@ -154,20 +111,10 @@ module.exports = {
             console.error(error)
         }
     },
-    // delete(id) {
-    //     try {
-
-    //         db.query(`DELETE FROM recipes WHERE id = $1`, [id])
-
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-
-    // },
     async chefSelectOptions() {
         try {
-
             const query = `SELECT name, id FROM chefs ORDER BY name ASC`
+            
             const results = await db.query(query)
 
             return results.rows

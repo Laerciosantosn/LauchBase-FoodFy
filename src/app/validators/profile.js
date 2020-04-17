@@ -28,6 +28,7 @@ async function put(req, res, next) {
     const user =  await User.findOne({
       where: { email }
    })
+   
    if(user){
      return res.render('admin/profiles/index', {
         user: req.body,

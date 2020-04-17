@@ -1,7 +1,9 @@
 {% macro headerCreate(name, user, userAdmin) %}
 
   <section class="sectionTitle">
+
       <h2>{{ name }} {{ user }}</h2>
+      
       <div class="divButton">
           <button 
             class="salvar" 
@@ -11,8 +13,7 @@
               <a class="cancel" href="/admin/users">Cancel</a>
             {% endif %}
       </div>
-      {# <div class="divButton">
-      </div> #}
+
   </section>
 
 {% endmacro %}

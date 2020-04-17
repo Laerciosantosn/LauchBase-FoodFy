@@ -16,11 +16,8 @@ module.exports = {
     return res.render("admin/profiles/index", { user })
   },
   async put(req, res) {
-
     try {
-
       const id = req.session.userId
-
       let { name, email } = req.body
 
       await User.update(id, {
@@ -51,5 +48,4 @@ module.exports = {
     }
 
   }
-
 }

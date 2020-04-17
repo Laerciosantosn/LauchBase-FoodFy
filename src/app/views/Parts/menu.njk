@@ -1,46 +1,46 @@
-  <li class="headerLogin accounts">
-                {% if session.userId %}
-                    <a href="">
-                        <i class="material-icons" id="menu">
-                            menu
-                        </i>
-                    </a>
-                {% else %}
-                    <a href="/accounts" class="signin">
-                        Sign in
-                    </a>
+<li class="headerLogin accounts">
+    {% if session.userId %}
+        <a href="">
+            <i class="material-icons" id="menu">
+                menu
+            </i>
+        </a>
+    {% else %}
+        <a href="/accounts" class="signin">
+            Sign in
+        </a>
 
-                {% endif %}
+    {% endif %}
 
-                {% if session.userId %}
-                    <ul class="menu">
+    {% if session.userId %}
+        <ul class="menu">
 
-                        <li class="item" id="profile">
-                            <p class="btn">{{session.userName}}</p>
-                            <p class="btn">{{session.userEmail}}</p>
-                        </li>
-
-                        <li class="item" id="recipes">
-                            <a href="/admin/recipes" class="btn">Recipes</a>
-                        </li>
-
-                        <li class="item" id="chefs">
-                            <a href="/admin/chefs" class="btn">Chefs</a>
-                        </li>
-
-                        <li class="item" id="users">
-                            <a href="/admin/users" class="btn">User</a>
-                        </li>
-
-                        <li class="item">
-                            <form action="/users/logout" method="POST">
-                                <button>Sign out
-                                    {{session.name}}</button>
-                            </form>
-                        </li>
-
-                    </ul>
-
-                {% endif %}
-
+            <li class="item" id="profile">
+                <p class="btn">{{session.userName}}</p>
+                <p class="btn">{{session.userEmail}}</p>
             </li>
+
+            <li class="item" id="recipes">
+                <a href="/admin/recipes" class="btn">Recipes</a>
+            </li>
+
+            <li class="item" id="chefs">
+                <a href="/admin/chefs" class="btn">Chefs</a>
+            </li>
+
+            <li class="item" id="users">
+                <a href="/admin/users" class="btn">User</a>
+            </li>
+
+            <li class="item">
+                <form action="/users/logout" method="POST">
+                    <button>Sign out
+                        {{session.name}}</button>
+                </form>
+            </li>
+
+        </ul>
+
+    {% endif %}
+
+</li>

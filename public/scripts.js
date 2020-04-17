@@ -4,20 +4,20 @@ const menuItems = document.querySelectorAll("header .links a")
 
 for (item of menuItems) {
 
-    if (currentPage.includes(item.getAttribute("href"))) { 
+    if (currentPage.includes(item.getAttribute("href"))) {
         item.classList.add("active")
     }
 }
- 
+
 const PhotosUpload = {
     input: "",
     preview: document.querySelector('#photos-preview'),
     uploadLimit: 5,
     files: [],
     handleFileInput(event, num) {
-       
+
         this.uploadLimit = num
-        
+
         console.log(this.uploadLimit)
         const { files: fileList } = event.target
         PhotosUpload.input = event.target
@@ -40,10 +40,10 @@ const PhotosUpload = {
             reader.readAsDataURL(file)
         })
 
-         PhotosUpload.input.files = PhotosUpload.getAllFiles()
+        PhotosUpload.input.files = PhotosUpload.getAllFiles()
     },
     hasLimit(event) {
-       
+
         const { uploadLimit, input, preview } = PhotosUpload
         const { files: fileList } = input
 
@@ -55,10 +55,10 @@ const PhotosUpload = {
 
         const photoDiv = []
         preview.childNodes.forEach(item => {
-            if(item.classList && item.classList.value == "photo")
-            photoDiv.push(item)
+            if (item.classList && item.classList.value == "photo")
+                photoDiv.push(item)
         })
-        
+
         const totalPhotos = fileList.length + photoDiv.length
         if (totalPhotos > uploadLimit) {
             alert("Voce atingiu o limite maximo de fotos")
@@ -67,7 +67,7 @@ const PhotosUpload = {
         }
         return false
     },
-    getAllFiles(){
+    getAllFiles() {
         const dataTransfer = new ClipboardEvent("").clipboardData || new DataTransfer()
 
         PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
@@ -75,7 +75,7 @@ const PhotosUpload = {
         return dataTransfer.files
     },
     getContainer(image) {
-        const div =  document.createElement('div')
+        const div = document.createElement('div')
         div.classList.add('photo')
 
         div.onclick = PhotosUpload.removePhoto
@@ -87,7 +87,7 @@ const PhotosUpload = {
         return div
     },
     getRemoveButton() {
-        const button =  document.createElement('i')
+        const button = document.createElement('i')
         button.classList.add('material-icons')
         button.innerHTML = "close"
         return button
@@ -104,10 +104,10 @@ const PhotosUpload = {
     },
     removeOldPhoto(event) {
         const photoDiv = event.target.parentNode
-        
-        if(photoDiv.id) {
+
+        if (photoDiv.id) {
             const removedFiles = document.querySelector('input[name="removed_files"]')
-            if(removedFiles){
+            if (removedFiles) {
                 removedFiles.value += `${photoDiv.id},`
             }
         }
@@ -118,30 +118,30 @@ const PhotosUpload = {
 
 const addNewImput = {
 
-   addIngredient() {
+    addIngredient() {
         const ingredients = document.querySelector("#ingredients");
         const fieldContainer = document.querySelectorAll(".ingredient");
-        
+
         const newField = fieldContainer[fieldContainer.length - 1].cloneNode(
-          true
+            true
         );
-      newField.c
+        newField.c
         if (newField.children[0].value == "") return false;
-      
-        newField.children[0].value = ""; 
+
+        newField.children[0].value = "";
         ingredients.appendChild(newField);
-      },
+    },
     addPasso() {
         const passos = document.querySelector("#passos");
         const passoContainer = document.querySelectorAll(".passo");
-        
+
         const newPasso = passoContainer[passoContainer.length - 1].cloneNode(
-          true
+            true
         );
-      
+
         if (newPasso.children[0].value == "") return false;
-      
-        newPasso.children[0].value = ""; 
+
+        newPasso.children[0].value = "";
         passos.appendChild(newPasso);
     }
 }
@@ -157,7 +157,6 @@ function paginate(selectedPage, totalPage) {
         const pagesBeforeSelectedPage = currentPage >= selectedPage - 2
 
         if (firsAndLastPage || pagesBeforeSelectedPage && pagesAfterSelectedPage) {
-            // pages.push(currentPage)
             if (oldPage && currentPage - oldPage > 2) {
                 pages.push("...")
             }
@@ -213,52 +212,49 @@ const ImageGallery = {
         ImageGallery.preview.forEach(preview => preview.classList.remove('active'))
         target.classList.add('active')
         ImageGallery.highlight.src = target.src
-        // Lightbox.image.src = target.src
     }
 }
 const Validate = {
-    apply (input, func) {
+    apply(input, func) {
         Validate.clearErrors(input)
 
         let results = Validate[func](input.value)
         input.value = results.value
 
-        if(results.error) {
+        if (results.error) {
             Validate.displayError(input, results.error)
         }
-
-        
     },
-    displayError(input, error){
-      const inputEmail =  document.getElementById('email')
-      inputEmail.classList.add('erroremail')
+    displayError(input, error) {
+        const inputEmail = document.getElementById('email')
+        inputEmail.classList.add('erroremail')
 
-      const div = document.createElement('div')
+        const div = document.createElement('div')
         div.classList.add('error')
         div.innerHTML = error
         input.parentNode.appendChild(div)
 
         input.focus()
     },
-    clearErrors(input){
+    clearErrors(input) {
         const errorDiv = input.parentNode.querySelector(".error")
 
-        const inputEmail =  document.getElementById('email')
+        const inputEmail = document.getElementById('email')
         inputEmail.classList.remove('erroremail')
 
-        if(errorDiv){
+        if (errorDiv) {
             errorDiv.remove()
         }
     },
-    isEmail(value){
+    isEmail(value) {
         let error = null
         const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
-        if(!value.match(mailFormat)) {
+        if (!value.match(mailFormat)) {
             error = "Invalid email"
         }
 
-        return{
+        return {
             error,
             value
         }
@@ -266,7 +262,7 @@ const Validate = {
 }
 
 
-function confirmDelete (event) {
+function confirmDelete(event) {
     const confirmation = confirm("Want to delete?")
     if (!confirmation) {
         event.preventDefault()

@@ -155,7 +155,9 @@ module.exports = {
         where: { user_id }
       })
 
-      const recipeFilesPromise = recipes.map(recipe => RecipeFiles.all(recipe.id))
+      const recipeFilesPromise = recipes.map(recipe => RecipeFiles.findAll({
+        where: { recipe_id: recipe.id }
+      }))
       const recipeFileResults = await Promise.all(recipeFilesPromise)
      
       await User.delete(id)
@@ -165,7 +167,9 @@ module.exports = {
         files.push(...file)
       })
       
-      let filesPromise = files.map( file => Files.all(file.file_id))
+      let filesPromise = files.map( file => Files.findOne({
+        where: { id: file.file_id }
+      }))
       const fileResults = await Promise.all(filesPromise)
 
       fileResults.map(file => {
@@ -192,7 +196,5 @@ module.exports = {
         error: "Something went wrong!"
       })
     }
-
-
   },
 }

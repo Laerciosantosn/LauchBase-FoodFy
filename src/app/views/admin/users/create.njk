@@ -13,7 +13,12 @@
                     <div class="item">
                         {% include 'Parts/FormsUsers.njk'%}
                         <div class="user">
-                            <input type="checkbox" name="is_admin" value="true" {% if user.is_admin == true %} checked="checked" {% endif %}>
+                            <input type="checkbox" 
+                                name="is_admin" 
+                                value="true" 
+                                {% if user.is_admin == true %} 
+                                    checked="checked" 
+                                {% endif %}>
                             <p>Administrator</p>
                         </div>
                     </div>

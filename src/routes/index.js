@@ -8,7 +8,6 @@ const Profiles = require('./profiles')
 const Users = require('./users')
 const Session = require('./session')
 
-// === ROTA PARA A PAGINA HOME ===
 routes.use("/", Home)
 
 routes.use('/users', Session) 

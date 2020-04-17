@@ -80,8 +80,6 @@ module.exports = {
     },
     async chefs(req, res) {
         try {
-            // const chefsAll = await Chefs.all()
-        
            let chefs =  await Chefs.allchefs()
     
            chefs = await chefs.map(file => ({
@@ -131,5 +129,3 @@ module.exports = {
         }
     },
 }
-
-  

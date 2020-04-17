@@ -4,14 +4,14 @@
 
     <main id="main" class="mainAdminDetalhe">
         <section class="sectionTitle">
-            <h3>Chef:
-                {{ chef.name }} </h3>
+            <h3>Chef: {{ chef.name }} </h3>
                 {% if session.userAdmin == true %}
                     <a href="{{ chef.id }}/edit">
                         <p>Editar chef</p>
                     </a>
                 {% endif %}    
         </section>
+        
         {% include 'Parts/chefShow.njk'%}
 
     </main>

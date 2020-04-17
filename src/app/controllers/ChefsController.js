@@ -1,4 +1,5 @@
 const { unlinkSync } = require('fs')
+
 const Chefs = require('../models/chefs')
 const Recipes = require('../models/recipes')
 const RecipeFiles = require('../models/recipesFile')
@@ -7,7 +8,6 @@ const File = require('../models/file')
 module.exports = {
     async index(req, res) { 
        try {
-            
             const chefsPromise =  await Chefs.allchefs()
             const Result = await Promise.all(chefsPromise)
             
@@ -28,28 +28,13 @@ module.exports = {
     async post(req, res) {
         try {
             const { name } =req.body
-            // if (req.body.name == "") {
-            //     return res.send("Please, fill all filds")
-            // }
-        
-            // if(req.file.lenght == 0) {
-            //     return res. send('Please, send at last image!')
-            // }
            
-            // const { filename, path } = req.file
-            // const dataFile = {
-            //     name: filename,
-            //     path
-            // } 
-          
             const resultFile = await File.create({
                 name: req.file.filename, 
                 path: req.file.path})
-            // const resultFile = await File.create(dataFile)
-            const file_id = resultFile.id
-            
-            // const data = { name, file_id}
 
+            const file_id = resultFile.id
+ 
             await Chefs.create({
                 name,
                 file_id
@@ -80,12 +65,10 @@ module.exports = {
             }
             
             let recipesResults = await Recipes.recipesChef(chefResult.id)
-            // console.log(recipesResults)
             
             const recipePromise = recipesResults.map( recipe => RecipeFiles.findOne({
                 where:{ recipe_id: recipe.id }
             }))
-            // const recipePromise = recipesResults.map( recipe => RecipeFiles.recipeChef(recipe.id))
             const Result =  await Promise.all(recipePromise)
         
             const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
@@ -134,21 +117,16 @@ module.exports = {
                 return res.send('Fill all fields')
             }
         }
-
-        // let file_id = req.body.file_id
         
         if (req.files.length != 0) {
             
-            // const dataFile = {
-            //     name: filename,
-            //     path
-            // } 
             const file = await File.create({
                 name : filename,
                 path
             })
             file_id = file.id
         }
+
         const data = { name, file_id}
         await Chefs.update(id, data)
 
@@ -179,6 +157,7 @@ module.exports = {
             await Promise.all(removedFilesPromise)
 
         }
+
         return res.redirect(`chefs/${req.body.id}`)
     },
     async delete(req, res) {
@@ -191,27 +170,20 @@ module.exports = {
                 where: { id }
             })
             
-            // const file = await File.find(chef.file_id)
-            // console.log(chef)
-            // if(chef.total_recipes == 0){
+            await Chefs.delete(req.body.id)
 
-                await Chefs.delete(req.body.id)
+            fileRemove = [file]
+        
+            fileRemove.map(file => {
+                try {
+                    unlinkSync(file.path)
+                } catch(err) {
+                    console.error(err)
+                }
+            }) 
+            await File.delete(file.id)
 
-                fileRemove = [file]
-            
-                fileRemove.map(file => {
-                    try {
-                        unlinkSync(file.path)
-                    } catch(err) {
-                        console.error(err)
-                    }
-                }) 
-                await File.delete(file.id)
-
-                return res.redirect(`chefs`)
-            // } else {
-            //     return res.send("Chefs que possuem receitas não podem ser deletados")
-            // }
+            return res.redirect(`chefs`)
 
         } catch (error) {
             console.error(error)

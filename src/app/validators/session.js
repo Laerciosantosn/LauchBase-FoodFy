@@ -45,7 +45,6 @@ async function forgot(req, res, next) {
 }
 
 async function reset(req, res, next) {
-   // procurar usuário
    const { email, password, passwordRepeat, token } = req.body
   
    const user =  await User.findOne({ where: { email } })
@@ -56,7 +55,6 @@ async function reset(req, res, next) {
      error: "User not found"
    } )
 
-    // vefificar senha
    if (password != passwordRepeat) {
      return res.render("admin/session/password-reset", {
        user: req.body,
@@ -64,14 +62,14 @@ async function reset(req, res, next) {
        error: "The password is mismatch"
      })
    }
-    //  verificar se token bate
+
    if(token != user.reset_token) {
      return res.render("admin/session/forgot-password", {
       user: req.body,
       error: "The token is invalid! Request an new password."
     })
    }
-    //  verificar se token expirou
+   
     let now = new Date()
     now = now.setHours(now.getHours())
 

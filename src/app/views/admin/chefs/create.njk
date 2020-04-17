@@ -6,17 +6,15 @@
     <main id="main">
 
         {{ section.headerCreate('Criate a chefs') }}
-   
+
         <section class="form">
-        
             <form method="POST" action="/admin/chefs" id="post" enctype="multipart/form-data">
-
                 {% include 'Parts/FormsChefs.njk'%}
-
             </form>
         </section>
 
     </main>
+    
 {% endblock content %}
 
 {% block footer %}

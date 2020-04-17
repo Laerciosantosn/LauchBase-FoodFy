@@ -14,17 +14,13 @@
 
     <body>
     
-{% block header %}
-    {% include "Parts/HeaderAdmin.njk" %}
-{% endblock header %}
+        {% block header %}
+            {% include "Parts/HeaderAdmin.njk" %}
+        {% endblock header %}
 
-        <!-- Tudo que for de outras paginas sera add no block content -->
         {% block content %}{% endblock %}
 
-        {# {% include "Parts/Footer.njk" %} #}
-    
         <script src="/scripts.js"></script>
-        {# <script src="/scriptNewCampo.js"></script> #}
 
     </body>
 

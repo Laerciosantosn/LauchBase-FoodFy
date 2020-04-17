@@ -24,7 +24,6 @@ module.exports = {
   },
   indexForgotPassword(req, res) {
     return res.render("admin/session/forgot-password")
-    
   },
   async forgotPassword(req, res) {
     try {
@@ -91,40 +90,34 @@ module.exports = {
         success: "Verify your email address for recovery the password!"
       })
 
-    //  avisar o usuario que enviamos o email
     } catch (error) {
       console.error(error)
       res.render("admin/session/forgot-password", {
         error: "Something went wrong"
       })
     }
-
   },
   indexResetPassword(req, res) {
     return res.render("admin/session/password-reset", { token: req.query.token})
-
   },
   async resetPassword(req, res) {
     try { 
       const user  = req.user
      
-      const { password, token } = req.body
+      const { password } = req.body
 
-      // cria um novo hash de senha
       const newPassword = await hash(password, 8)
 
-      // atualizar usuario
       await User.update(user.id, {
         password: newPassword,
         reset_token: "",
         reset_token_expires: ""
       })
-      // avisar usuário que ele ten nova senha
+
       return res.render("admin/session/login", {
         user: req.body,
         success: "The password updated! Log in in your account"
       })
-
 
     } catch (error) {
       console.error(error)

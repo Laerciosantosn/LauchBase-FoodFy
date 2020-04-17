@@ -32,15 +32,6 @@ async function post(req, res, next) {
   }
   
   next()
-
-}
-
-async function edit(req, res, next) {
-
-}
-
-async function put(req, res, next) {
-
 }
 
 module.exports = {
