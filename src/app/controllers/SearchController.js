@@ -9,7 +9,7 @@ module.exports = {
       let { filter, page, limit } = req.query
 
       page = page || 1
-      limit = limit || 1
+      limit = limit || 5
       let offset = limit * (page - 1)
 
       let pagination
@@ -32,7 +32,9 @@ module.exports = {
 
       let recipes = await Recipes.all()
 
-      let recipePromise = recipes.map(recipe => RecipeFiles.find(recipe.id))
+      let recipePromise = recipes.map(recipe => RecipeFiles.findOne({
+        where: { recipe_id: recipe.id }
+      }))
       const Result = await Promise.all(recipePromise)
 
       const filePromise = Result.map(recipeFile => Recipes.recipAndFile(recipeFile.file_id, recipeFile.recipe_id))
@@ -47,8 +49,10 @@ module.exports = {
 
       if (filter) {
         const filterResult = await Search.findRecipes(filter)
-
-        recipePromise = filterResult.map(recipe => RecipeFiles.find(recipe.id))
+      
+        recipePromise = filterResult.map(recipe => RecipeFiles.findOne({
+          where: { recipe_id: recipe.id }
+        }))
         let filtered = await Promise.all(recipePromise)
 
         const recipAndFilePromise = filtered.map(recipeFile => Recipes.recipAndFile(recipeFile.file_id, recipeFile.recipe_id))

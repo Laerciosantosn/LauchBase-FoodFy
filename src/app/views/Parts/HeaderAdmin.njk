@@ -5,7 +5,12 @@
         <nav class="links">
             <a href="/admin/recipes">Recipes</a>
             <a href="/admin/chefs">Chefs</a>
-            <a href="/admin/users">Users</a>
+            {% if session.userAdmin == false  %}
+                <a href="/admin/profile">User</a>
+            {% else %}
+                <a href="/admin/users">Users </a>
+            {% endif %}
+
         </nav>
 
         <div class="searchButon">
