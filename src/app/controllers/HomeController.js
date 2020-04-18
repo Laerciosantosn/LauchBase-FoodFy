@@ -7,12 +7,12 @@ module.exports = {
     async index(req, res) {
         try {
             let recipesResults = await Recipes.all()
-            
+           
             const recipePromise = recipesResults.map( recipe => RecipeFiles.findOne({
                 where: { recipe_id: recipe.id }
             }))
             const result =  await Promise.all(recipePromise)
-            
+          
             const filePromise = result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
             let fileResult =  await Promise.all(filePromise)
 

@@ -59,7 +59,7 @@ module.exports = {
         }
 
     },
-    createWithArray(data) {
+    async createWithArray(data) {
         try {
             const query = `
                 INSERT INTO recipes (
@@ -80,8 +80,9 @@ module.exports = {
                 data.information,
                 data.user_id
             ]
-            return db.query(query, values)
-
+            const results = await db.query(query, values)
+            
+            return results.rows[0]
         } catch (error) {
             console.error(error)
         }

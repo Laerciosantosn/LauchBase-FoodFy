@@ -56,7 +56,7 @@ module.exports = {
        
             let resultsRecipe = await Recipes.createWithArray(req.body)
             
-            const recipetId = resultsRecipe.rows[0].id
+            const recipetId = resultsRecipe.id
 
             const resultsFiles = req.files.map(files => File.create({
                 name: files.filename,
