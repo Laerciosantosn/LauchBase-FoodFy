@@ -9,7 +9,7 @@ const File = require('./src/app/models/file')
 
 let totalChefs = 5
 let totalUsers = 2 // Foi criado dois usuários Admin e Profile
-let totalRecipes = 8
+let totalRecipes = 10
 const maxImageRecipes = 5
 
 let path = ''
