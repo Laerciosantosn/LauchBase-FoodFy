@@ -1,6 +1,6 @@
 <h1 align="center">
 <br>
-  <img src="./public/images/BannerFoodfy.jpg" alt="Foodfy image"  style="object-fit: cover; width: 914px; height:200px;border-radius: 8px;">
+  <img src="./public/images/BannerFoodfy.png" alt="Foodfy image"  style="object-fit: cover; width: 914px; height:200px;border-radius: 8px;">
 <br>
 
 <br>
