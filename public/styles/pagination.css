@@ -1,8 +1,7 @@
 .pagination {
   width: 920px;
   display: flex;
-  position: absolute;
-  bottom: 0px ;
+  margin-top: 15%;
   padding: 20px;
   background: rgba(235, 234, 236, 0.8);
   box-shadow: 2px 2px 4px -2px rgba(0, 0, 0, 0.3);
