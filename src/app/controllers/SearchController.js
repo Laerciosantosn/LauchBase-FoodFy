@@ -7,32 +7,21 @@ module.exports = {
     try {
 
       let { filter, page, limit } = req.query
-
+      
       page = page || 1
-      limit = limit || 5
-      let offset = limit * (page - 1)
-
-      let pagination
+      limit = limit || 2
+      let offset = limit *(page -1 )
 
       const params = {
         filter,
         page,
         limit,
         offset,
-        callback(recipes) {
-          if (recipes[0]) {
-              pagination = {
-              total: Math.ceil(recipes[0].total / limit),
-              page
-            }
-          }
-        }
       }
-      await Recipes.paginate(params)
 
-      let recipes = await Recipes.all()
+      const recipeResults = await Search.paginate(params)
 
-      let recipePromise = recipes.map(recipe => RecipeFiles.findOne({
+      let recipePromise = recipeResults.map(recipe => RecipeFiles.findOne({
         where: { recipe_id: recipe.id }
       }))
       const Result = await Promise.all(recipePromise)
@@ -45,31 +34,8 @@ module.exports = {
         src: `${file.path.replace("public", "")}`
       }))
 
-      // const { filter } = req.query
+        return res.render("home/Search/Index", { recipes, filter })
 
-      if (filter) {
-        const filterResult = await Search.findRecipes(filter)
-      
-        recipePromise = filterResult.map(recipe => RecipeFiles.findOne({
-          where: { recipe_id: recipe.id }
-        }))
-        let filtered = await Promise.all(recipePromise)
-
-        const recipAndFilePromise = filtered.map(recipeFile => Recipes.recipAndFile(recipeFile.file_id, recipeFile.recipe_id))
-        let recipAndFileResult = await Promise.all(recipAndFilePromise)
-
-        recipes = await recipAndFileResult.map(file => ({
-          ...file,
-          src: `${file.path.replace("public", "")}`
-        }))
-
-        return res.render("home/Search/Index", { recipes, pagination, filter })
-
-      } else {
-
-        return res.render("home/Search/Index", { recipes, filter, pagination })
-
-      }
     } catch (error) {
       console.error(error)
     }

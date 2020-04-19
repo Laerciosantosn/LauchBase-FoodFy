@@ -124,23 +124,4 @@ module.exports = {
             console.error(error)
         }
     },
-    async paginate(params) {
-        try {
-            const { limit, offset, callback } = params
-
-            query = `SELECT *, (SELECT count(*) FROM recipes) AS total FROM recipes
-                LIMIT $1 OFFSET $2    
-            `
-            const values = [
-                limit,
-                offset
-            ]
-
-            const results = await db.query(query, values)
-
-            callback(results.rows)
-        } catch (error) {
-            console.error(error)
-        }
-    },
 }
