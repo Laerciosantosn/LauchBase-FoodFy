@@ -1,440 +1,100 @@
---
--- PostgreSQL database dump
---
+DROP DATABASE IF EXISTS foodfy;
 
--- Dumped from database version 12.2
--- Dumped by pg_dump version 12.2
+-- CREATED DATABASE
+CREATE DATABASE foodfy;
 
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
+-- CREATED USERS TABLE
+CREATE TABLE "users" (
+"id" SERIAL PRIMARY KEY,
+"name" TEXT NOT NULL,
+"email" TEXT UNIQUE NOT NULL,
+"password" TEXT NOT NULL,
+"reset_token" TEXT,
+"reset_token_expires" TEXT,
+"is_admin" BOOLEAN DEFAULT false,
+"created_at" TIMESTAMP DEFAULT(now()),
+"updated_at" TIMESTAMP DEFAULT(now())
+);
 
---
--- Name: trigger_set_timestamp(); Type: FUNCTION; Schema: public; Owner: -
---
+-- CREATED RECIPES TABLE
+CREATE TABLE "recipes" (
+  "id" SERIAL PRIMARY KEY,
+  "chef_id" int,
+  "user_id" int,
+  "title" text,
+  "ingredients" text [],
+  "preparation" text [],
+  "information" text,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
 
-CREATE FUNCTION public.trigger_set_timestamp() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
+-- CREATED RECIPE_FILES TABLE
+CREATE TABLE "recipe_files" (
+  "id" SERIAL PRIMARY KEY,
+  "recipe_id" INTEGER,
+  "file_id" INTEGER
+);
+
+-- CREATED CHEFS TABLE
+CREATE TABLE "chefs" (
+  "id" SERIAL PRIMARY KEY,
+  "file_id" integer,
+  "name" text,
+  "created_at" timestamp DEFAULT (now()),
+  "updated_at" timestamp DEFAULT (now())
+);
+
+-- CREATED FILES TABLE
+CREATE TABLE "files" (
+  "id" SERIAL PRIMARY KEY,
+  "name" text,
+  "path" text NOT NULL
+);
+
+-- CREATED SESSION TABLE
+CREATE TABLE "session" (
+  "sid" varchar NOT NULL COLLATE "default",
+  "sess" json NOT NULL,
+  "expire" timestamp(6) NOT NULL
+)
+WITH (OIDS=FALSE);
+ALTER TABLE "session" 
+ADD CONSTRAINT "session_pkey" 
+PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+
+-- CREATED CONSTRAINTS
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id") ON DELETE CASCADE;
+ALTER TABLE "recipe_files" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "chefs" ADD FOREIGN KEY ("file_id") REFERENCES "files" ("id") ON DELETE CASCADE;
+ALTER TABLE "recipes" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;
+
+
+-- CREATE PROCEDURE
+CREATE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
 BEGIN
-  NEW.updated_at = NOW();
+	NEW.updated_at = NOW();
   RETURN NEW;
 END;
-$$;
-
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
--- Name: chefs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.chefs (
-    id integer NOT NULL,
-    name text,
-    file_id integer,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now()
-);
-
-
---
--- Name: chefs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.chefs_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: chefs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.chefs_id_seq OWNED BY public.chefs.id;
-
-
---
--- Name: files; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.files (
-    id integer NOT NULL,
-    name text,
-    path text NOT NULL
-);
-
-
---
--- Name: files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.files_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.files_id_seq OWNED BY public.files.id;
-
-
---
--- Name: recipe_files; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.recipe_files (
-    id integer NOT NULL,
-    recipe_id integer NOT NULL,
-    file_id integer
-);
-
-
---
--- Name: recipe_files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.recipe_files_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: recipe_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.recipe_files_id_seq OWNED BY public.recipe_files.id;
-
-
---
--- Name: recipes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.recipes (
-    id integer NOT NULL,
-    chef_id integer,
-    title text,
-    ingredients text[],
-    preparation text[],
-    information text,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now(),
-    user_id integer
-);
-
-
---
--- Name: recipes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.recipes_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: recipes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.recipes_id_seq OWNED BY public.recipes.id;
-
-
---
--- Name: session; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.session (
-    sid character varying NOT NULL,
-    sess json NOT NULL,
-    expire timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.users (
-    id integer NOT NULL,
-    name text NOT NULL,
-    email text NOT NULL,
-    password text NOT NULL,
-    reset_token text,
-    reset_token_expires text,
-    is_admin boolean DEFAULT false,
-    created_at timestamp without time zone DEFAULT now(),
-    updated_at timestamp without time zone DEFAULT now()
-);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.users_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
-
-
---
--- Name: chefs id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.chefs ALTER COLUMN id SET DEFAULT nextval('public.chefs_id_seq'::regclass);
-
-
---
--- Name: files id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.files ALTER COLUMN id SET DEFAULT nextval('public.files_id_seq'::regclass);
-
-
---
--- Name: recipe_files id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipe_files ALTER COLUMN id SET DEFAULT nextval('public.recipe_files_id_seq'::regclass);
-
-
---
--- Name: recipes id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipes ALTER COLUMN id SET DEFAULT nextval('public.recipes_id_seq'::regclass);
-
-
---
--- Name: users id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
-
-
---
--- Data for Name: chefs; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.chefs (id, name, file_id, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Data for Name: files; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.files (id, name, path) FROM stdin;
-\.
-
-
---
--- Data for Name: recipe_files; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.recipe_files (id, recipe_id, file_id) FROM stdin;
-\.
-
-
---
--- Data for Name: recipes; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.recipes (id, chef_id, title, ingredients, preparation, information, created_at, updated_at, user_id) FROM stdin;
-\.
-
-
---
--- Data for Name: session; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.session (sid, sess, expire) FROM stdin;
-\.
-
-
---
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY public.users (id, name, email, password, reset_token, reset_token_expires, is_admin, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Name: chefs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.chefs_id_seq', 1, false);
-
-
---
--- Name: files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.files_id_seq', 1, false);
-
-
---
--- Name: recipe_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.recipe_files_id_seq', 1, false);
-
-
---
--- Name: recipes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.recipes_id_seq', 1, false);
-
-
---
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
-
-
---
--- Name: chefs chefs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.chefs
-    ADD CONSTRAINT chefs_pkey PRIMARY KEY (id);
-
-
---
--- Name: files files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.files
-    ADD CONSTRAINT files_pkey PRIMARY KEY (id);
-
-
---
--- Name: recipe_files recipe_files_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipe_files
-    ADD CONSTRAINT recipe_files_pkey PRIMARY KEY (id);
-
-
---
--- Name: recipes recipes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipes
-    ADD CONSTRAINT recipes_pkey PRIMARY KEY (id);
-
-
---
--- Name: session session_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.session
-    ADD CONSTRAINT session_pkey PRIMARY KEY (sid);
-
-
---
--- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_email_key UNIQUE (email);
-
-
---
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
-
-
---
--- Name: chefs set_timestamp; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER set_timestamp BEFORE UPDATE ON public.chefs FOR EACH ROW EXECUTE FUNCTION public.trigger_set_timestamp();
-
-
---
--- Name: recipes set_timestamp; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER set_timestamp BEFORE UPDATE ON public.recipes FOR EACH ROW EXECUTE FUNCTION public.trigger_set_timestamp();
-
-
---
--- Name: chefs chefs_file_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.chefs
-    ADD CONSTRAINT chefs_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.files(id) ON DELETE CASCADE;
-
-
---
--- Name: recipe_files recipe_files_file_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipe_files
-    ADD CONSTRAINT recipe_files_file_id_fkey FOREIGN KEY (file_id) REFERENCES public.files(id) ON DELETE CASCADE;
-
-
---
--- Name: recipe_files recipe_files_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipe_files
-    ADD CONSTRAINT recipe_files_recipe_id_fkey FOREIGN KEY (recipe_id) REFERENCES public.recipes(id) ON DELETE CASCADE;
-
-
---
--- Name: recipes recipes_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.recipes
-    ADD CONSTRAINT recipes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- PostgreSQL database dump complete
---
-
+$$ LANGUAGE plpgsql;
+
+
+-- AUTO UPDATED_AT CHEFS
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON chefs
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- AUTO UPDATED_AT RECIPES
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON recipes
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();
+
+-- AUTO UPDATED_AT USERS
+CREATE TRIGGER set_timestamp
+BEFORE UPDATE ON users
+FOR EACH ROW
+EXECUTE PROCEDURE trigger_set_timestamp();

@@ -10,10 +10,9 @@ const File = require('./src/app/models/file')
 let totalChefs = 5
 let totalUsers = 2 // Foi criado dois usuários Admin e Profile
 let totalRecipes = 10
-const maxImageRecipes = 5
+const maxImageRecipes = 8
 
 let path = ''
-
 
 async function createUsers() {
   const users = []

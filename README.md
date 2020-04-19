@@ -43,9 +43,9 @@ Describe here the way to use/install your project
 #### Getting started with the backend server
 
 1. Run `npm install` to install the packages dependecies
-2. Import the file databse `foodfy.sql`
+2. In the `foodfy.sql` file, copy and run the query in the databse 
 3. Rename file `exemplo.env` to `.env`
-4. Configure in file `.env` the Data base and Mailer
+4. Configure the `.env` file with the Database and Mailer data.
 5. Run the `seed.js` file to create date in your database.
 
 #### Getting started with the frontend

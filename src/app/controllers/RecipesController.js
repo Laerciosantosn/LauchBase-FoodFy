@@ -112,10 +112,12 @@ module.exports = {
 
             const chefOptions = await Recipes.chefSelectOptions()
 
-            const recipeFiles = await RecipeFiles.findAll({
+            let recipeFiles = await RecipeFiles.findAll({
                 where: { recipe_id: recipe.id }
             })
-
+            recipeFiles = recipeFiles
+            .filter((recipeFiles, index) => index > 4 ? false : true)
+                     
             filePromise = await recipeFiles.map(file => (File.findOne({
                 where: { id: file.file_id }
             })))

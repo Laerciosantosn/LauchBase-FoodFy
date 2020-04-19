@@ -1,4 +1,5 @@
 const Recipes = require('../models/recipes')
+const { compare } = require('bcryptjs')
 
 function checkAllFields(body){
   const keys = Object.keys(body)
@@ -33,7 +34,21 @@ async function post(req, res, next) {
   
   next()
 }
+async function put( req, res, next) {
+  const { id } = req.params
+  const { userId, userAdmin } = req.session
+
+  if(userAdmin == false) {
+    const recipe =  await Recipes.findOne({ where: { id } })
+
+      if(userId !== recipe.user_id) {
+        return res.redirect('/admin/profile')
+      }
+  }
+  next()
+}
 
 module.exports = {
-  post
+  post,
+  put
 }

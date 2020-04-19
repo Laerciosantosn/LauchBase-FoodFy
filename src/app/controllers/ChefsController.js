@@ -97,11 +97,11 @@ module.exports = {
         }
     },
     async put(req, res) {
-        const { filename, path } = req.files[0]
+       
         let { name, id, file_id } =req.body
-
+        
         const keys = Object.keys(req.body)
-
+        
         for(key of keys){
             if(req.body[key] == '' && key != 'removed_files'){
                 return res.send('Fill all fields')
@@ -109,6 +109,7 @@ module.exports = {
         }
         
         if (req.files.length != 0) {
+            const { filename, path } = req.files[0]
             
             const file = await File.create({
                 name : filename,
