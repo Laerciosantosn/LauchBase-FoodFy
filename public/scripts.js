@@ -260,7 +260,6 @@ const Validate = {
     }
 }
 
-
 function confirmDelete(event) {
     const confirmation = confirm("Want to delete?")
     if (!confirmation) {

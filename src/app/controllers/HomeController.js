@@ -3,25 +3,16 @@ const Chefs = require('../models/chefs')
 const RecipeFiles = require("../models/recipesFile")
 const File = require("../models/file")
 
+const LoadRecipes = require("../services/loadRecipes")
+
 module.exports = {
     async index(req, res) {
         try {
-            let recipesResults = await Recipes.all()
+            let recipes = await Recipes.all()
            
-            const recipePromise = recipesResults.map( recipe => RecipeFiles.findOne({
-                where: { recipe_id: recipe.id }
-            }))
-            const result =  await Promise.all(recipePromise)
-          
-            const filePromise = result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
-            let fileResult =  await Promise.all(filePromise)
+            recipes = await LoadRecipes.loadfiles(recipes)
 
-            recipesResults = await fileResult.map(file => ({
-                ...file,
-                src: `${file.path.replace("public","")}`
-            }))
-        
-            const recipes = recipesResults
+            recipes = recipes
             .filter((recipes, index) => index > 5 ? false : true)
         
             return res.render("home/Index", { recipes })
@@ -33,19 +24,8 @@ module.exports = {
     async recipes(req, res) {
         try {
             let recipes = await Recipes.all()
-        
-            const recipePromise = recipes.map( recipe => RecipeFiles.findOne({
-                where: { recipe_id: recipe.id }
-            }))
-            const Result =  await Promise.all(recipePromise)
-        
-            const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
-            let fileResult =  await Promise.all(filePromise)
 
-            recipes = await fileResult.map(file => ({
-                ...file,
-                src: `${file.path.replace("public","")}`
-            }))
+            recipes = await LoadRecipes.loadfiles(recipes)
 
             return res.render("home/Recipes/Index", { recipes })
         } catch (error) {
@@ -65,6 +45,7 @@ module.exports = {
             filePromise = await recipeFiles.map(file => (File.findOne({
                 where: { id: file.file_id }
             })))
+
             let files = await Promise.all(filePromise)
            
             files = files.map(file => ({

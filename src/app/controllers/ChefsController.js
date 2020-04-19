@@ -2,8 +2,9 @@ const { unlinkSync } = require('fs')
 
 const Chefs = require('../models/chefs')
 const Recipes = require('../models/recipes')
-const RecipeFiles = require('../models/recipesFile')
 const File = require('../models/file')
+
+const LoadRecipes = require("../services/loadRecipes")
 
 module.exports = {
     async index(req, res) { 
@@ -64,22 +65,11 @@ module.exports = {
                 total_recipes: chef.total_recipes
             }
             
-            let recipesResults = await Recipes.recipesChef(chefResult.id)
+            let recipes = await Recipes.recipesChef(chefResult.id)
             
-            const recipePromise = recipesResults.map( recipe => RecipeFiles.findOne({
-                where:{ recipe_id: recipe.id }
-            }))
-            const Result =  await Promise.all(recipePromise)
-        
-            const filePromise = Result.map( recipeFile => Recipes.recipAndFile( recipeFile.file_id, recipeFile.recipe_id))
-            let fileResult =  await Promise.all(filePromise)
-
-            recipesResults = await fileResult.map(file => ({
-                ...file,
-                src: `${file.path.replace("public","")}`
-            }))
-           
-            return res.render("admin/chefs/show", { chef : chefResult, recipes: recipesResults})
+            recipes = await LoadRecipes.loadfiles(recipes)
+ 
+            return res.render("admin/chefs/show", { chef : chefResult, recipes})
 
         } catch (error) {
             console.error(error)

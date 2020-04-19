@@ -4,6 +4,8 @@ const Recipes = require('../models/recipes')
 const File = require("../models/file")
 const RecipeFiles = require("../models/recipesFile")
 
+const LoadRecipes = require("../services/loadRecipes")
+
 module.exports = {
     async index(req, res) {
         try {
@@ -20,21 +22,9 @@ module.exports = {
                 recipes = await Recipes.all()
             }
 
-            const recipePromise = recipes.map(recipe => RecipeFiles.findOne({
-                where: { recipe_id: recipe.id }
-            }))
+            recipes = await LoadRecipes.loadfiles(recipes)
 
-            const result = await Promise.all(recipePromise)
-
-            const filePromise = result.map(recipeFile => Recipes.recipAndFile(recipeFile.file_id, recipeFile.recipe_id))
-            let fileResult = await Promise.all(filePromise)
-
-            recipes = await fileResult.map(file => ({
-                ...file,
-                src: `${file.path.replace("public", "")}`
-            }))
-
-            return res.render("admin/recipes/index", { recipes: recipes })
+            return res.render("admin/recipes/index", { recipes })
 
         } catch (error) {
             console.error(error)
