@@ -16,8 +16,8 @@ FOODFY
 </p>
 
 <div>
-  <img src="./public/images/admin.gif" alt="demo" height="400" width="450">
-  <img src="./public/images/home.gif" alt="demo" height="400" width="450">
+  <img src="./public/images/admin.gif" alt="demo" height="400" width="425">
+  <img src="./public/images/home.gif" alt="demo" height="400" width="425">
 </div>
 
 <hr />
